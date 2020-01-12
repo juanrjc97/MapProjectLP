@@ -27,6 +27,7 @@ class HomeViewController: UIViewController  {
     var user : User?
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        
@@ -39,7 +40,10 @@ class HomeViewController: UIViewController  {
         
         mapView.addGestureRecognizer(longPressRecognizer)
         
-       
+        
+        
+        
+        
         
         
         //inicalizar usuario
@@ -211,9 +215,6 @@ class HomeViewController: UIViewController  {
     //aqui comienza  el reconocimiento de gestos
     
    @objc func handleTap( gestureReconizer: UILongPressGestureRecognizer){
-     //si no funciona lo de aggregar la imagen borra todo y solo descomenta esto con esto funciona el metodo bien
-    //let camaraViewController = storyboard?.instantiateViewController(withIdentifier: "Camara")
-      // present(camaraViewController!, animated: true, completion: nil)
     //feddback
       let generator = UIImpactFeedbackGenerator(style: .heavy)
         //let Fatherpoint = MKAnnotationView()
@@ -229,8 +230,7 @@ class HomeViewController: UIViewController  {
               let annotation  =  MKPointAnnotation()  //MKAnnotationView()
               annotation.coordinate = coordinate
               annotation.title = "Basurero"
-              annotation.subtitle = "Rating Stars ⭐⭐⭐⭐"
-        
+              annotation.subtitle = "Rating Stars ⭐"
         
                 user?.AddUserAnnotations(coordenadas: trashCoord)
                 generator.impactOccurred()
