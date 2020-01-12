@@ -18,18 +18,15 @@ class User: NSObject {
     var userName : String = ""
     
     var MyTrash : [CLLocationCoordinate2D] =  []
-    var MyImages : [UIImage] = []
     
-    //var MyTrash : [Int : CLLocationCoordinate2D] =  [:]
+   // var MyTrashlocations : [CLLocationCoordinate2D : Int ] =  [:]
     
    
     func AddUserAnnotations(coordenadas : CLLocationCoordinate2D){
         MyTrash.append(coordenadas)
     }
     
-    func AddUserImages(imagen : UIImage){
-        MyImages.append(imagen)
-    }
+  
     
     
    /* func AddUserPoints(coordenadas : CLLocationCoordinate2D)  {

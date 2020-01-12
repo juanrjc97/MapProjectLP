@@ -11,15 +11,20 @@ import UIKit
 class RateViewController: UIViewController {
 
     @IBOutlet var starsBtn: [UIButton]!
+     var rate : Int = 0  ;
+     var  punto : Point?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //print(punto?.location)
+        
+        
         // Do any additional setup after loading the view.
     }
     
     @IBAction func DidTapStar(_ sender: UIButton) {
         
         print("Rated \(sender.tag) star")  //muestra a que le diste tap
+        rate = sender.tag
                for star in starsBtn {
                    if star.tag <= sender.tag {
                        star.setBackgroundImage(  UIImage.init(named: "fullStar"), for: .normal) //seleceted star
@@ -31,11 +36,18 @@ class RateViewController: UIViewController {
                    
                }
     }
+    
+    
     @IBAction func DidTapCancel(_ sender: UIButton) {
+       
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func DidTapSubmit(_ sender: UIButton) {
+        
+         print("this trash has " , rate , "stars")
+        punto?.rate =  rate
+        print( "Estrellas" ,  punto?.rate)
         dismiss(animated: true, completion: nil)
     }
     /*

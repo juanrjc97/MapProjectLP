@@ -13,6 +13,7 @@ enum MenuType: Int{
     case user
     case news
     case tips
+    case horarios
     
 }
 

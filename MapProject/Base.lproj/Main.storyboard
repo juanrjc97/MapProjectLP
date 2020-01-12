@@ -379,6 +379,46 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="98" id="HKd-CF-l0a">
+                                        <rect key="frame" x="0.0" y="454" width="375" height="98"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HKd-CF-l0a" id="P02-5W-3bM">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="98"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horario" translatesAutoresizingMaskIntoConstraints="NO" id="fXq-T0-aku">
+                                                    <rect key="frame" x="16" y="37" width="24" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="Grf-RA-XFw"/>
+                                                        <constraint firstAttribute="height" constant="24" id="dcz-3N-1wf"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aee-sw-N3a">
+                                                    <rect key="frame" x="16" y="96" width="359" height="2"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="2" id="DbL-1j-UHn"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schedules" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSv-Dx-XsP">
+                                                    <rect key="frame" x="56" y="36.666666666666664" width="85" height="25"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fXq-T0-aku" firstAttribute="centerY" secondItem="P02-5W-3bM" secondAttribute="centerY" id="7Oa-uu-ht7"/>
+                                                <constraint firstItem="zSv-Dx-XsP" firstAttribute="centerY" secondItem="fXq-T0-aku" secondAttribute="centerY" id="A0Q-Ox-o5w"/>
+                                                <constraint firstItem="Aee-sw-N3a" firstAttribute="leading" secondItem="P02-5W-3bM" secondAttribute="leading" constant="16" id="GIl-qD-4aD"/>
+                                                <constraint firstItem="fXq-T0-aku" firstAttribute="leading" secondItem="P02-5W-3bM" secondAttribute="leading" constant="16" id="WKY-eN-H6e"/>
+                                                <constraint firstAttribute="trailing" secondItem="Aee-sw-N3a" secondAttribute="trailing" id="Wss-Yo-o0V"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zSv-Dx-XsP" secondAttribute="trailing" constant="20" symbolic="YES" id="dmA-NT-1hr"/>
+                                                <constraint firstItem="zSv-Dx-XsP" firstAttribute="leading" secondItem="fXq-T0-aku" secondAttribute="trailing" constant="16" id="j3w-jo-oFf"/>
+                                                <constraint firstAttribute="bottom" secondItem="Aee-sw-N3a" secondAttribute="bottom" id="lcQ-HJ-mIG"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -397,7 +437,7 @@
         <!--UserViewController-->
         <scene sceneID="qKe-WG-LT6">
             <objects>
-                <viewController storyboardIdentifier="UserViewController" id="B2c-jI-Sdq" userLabel="UserViewController" customClass="UserViewController" customModule="MapProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserViewController" modalPresentationStyle="fullScreen" id="B2c-jI-Sdq" userLabel="UserViewController" customClass="UserViewController" customModule="MapProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jBT-x2-jet">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -439,7 +479,7 @@
         <!--Tips View Controller-->
         <scene sceneID="sel-YO-SNI">
             <objects>
-                <viewController storyboardIdentifier="TipsViewController" id="8hY-Hz-fzV" customClass="TipsViewController" customModule="MapProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TipsViewController" modalPresentationStyle="fullScreen" id="8hY-Hz-fzV" customClass="TipsViewController" customModule="MapProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qum-ML-nKI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -475,10 +515,50 @@
             </objects>
             <point key="canvasLocation" x="3831" y="372"/>
         </scene>
+        <!--Schedule View Controller-->
+        <scene sceneID="Wqr-Gh-Cpo">
+            <objects>
+                <viewController storyboardIdentifier="HorariosController" modalPresentationStyle="fullScreen" id="pBN-Cx-FgD" customClass="ScheduleViewController" customModule="MapProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tFJ-wB-8sc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Horarios" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGh-9T-xnK">
+                                <rect key="frame" x="143.66666666666666" y="392.33333333333331" width="88" height="27.666666666666686"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZOw-lD-FTa" userLabel="ExitButton">
+                                <rect key="frame" x="20" y="64" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="9ky-Za-zfQ"/>
+                                </constraints>
+                                <state key="normal" image="xmark" catalog="system"/>
+                                <connections>
+                                    <action selector="DimmisButton:" destination="8hY-Hz-fzV" eventType="touchUpInside" id="DsU-yH-BLs"/>
+                                    <action selector="didTapExitBtn:" destination="pBN-Cx-FgD" eventType="touchUpInside" id="lIb-7M-vQe"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="HGh-9T-xnK" firstAttribute="centerY" secondItem="tFJ-wB-8sc" secondAttribute="centerY" id="CCF-JY-TxW"/>
+                            <constraint firstItem="ZOw-lD-FTa" firstAttribute="top" secondItem="CQT-Kp-2hk" secondAttribute="top" constant="20" id="KNc-do-A7Y"/>
+                            <constraint firstItem="ZOw-lD-FTa" firstAttribute="leading" secondItem="CQT-Kp-2hk" secondAttribute="leading" constant="20" id="MqQ-sc-twd"/>
+                            <constraint firstItem="HGh-9T-xnK" firstAttribute="centerX" secondItem="tFJ-wB-8sc" secondAttribute="centerX" id="yxh-Xb-zdl"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="CQT-Kp-2hk"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3YV-0T-Iwo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4753" y="372"/>
+        </scene>
         <!--News View Controller-->
         <scene sceneID="7rM-eN-XT6">
             <objects>
-                <viewController storyboardIdentifier="NewsViewController" id="rXw-iK-CXI" customClass="NewsViewController" customModule="MapProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewsViewController" modalPresentationStyle="fullScreen" id="rXw-iK-CXI" customClass="NewsViewController" customModule="MapProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="A1X-aG-YhO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -539,6 +619,7 @@
     <resources>
         <image name="bombilla" width="512" height="512"/>
         <image name="estrella" width="512" height="512"/>
+        <image name="horario" width="512" height="512"/>
         <image name="mapa" width="512" height="512"/>
         <image name="menu" width="64" height="64"/>
         <image name="periodico" width="512" height="512"/>

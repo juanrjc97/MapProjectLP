@@ -83,6 +83,9 @@ class HomeViewController: UIViewController  {
             guard let tipsController =  storyboard?.instantiateViewController(withIdentifier: "TipsViewController") else {return}
             present(tipsController, animated: true, completion: nil)
              //print("show tips ")
+         case .horarios:
+            guard let ScheduleController =  storyboard?.instantiateViewController(withIdentifier: "HorariosController") else {return}
+            present(ScheduleController, animated: true, completion: nil)
          case .map:
              break
          }
@@ -217,7 +220,8 @@ class HomeViewController: UIViewController  {
         //Fatherpoint.annotation?.coordinate = coordinate
         // con anotation .tittle le ponemos el titulo a la anotatcion en el mapa aqui aplicar reverse location
     if gestureReconizer.state == .ended{
-            let location =    gestureReconizer.location(in: self.mapView)  //  gestureReconizer.location(in: mapView)
+        
+             let location =    gestureReconizer.location(in: self.mapView)  //  gestureReconizer.location(in: mapView)
               let coordinate = self.mapView.convert(location, toCoordinateFrom: self.mapView)
               //creando las coordenadas de los basureros del usuario
               let trashCoord = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
@@ -225,6 +229,9 @@ class HomeViewController: UIViewController  {
               let annotation  =  MKPointAnnotation()  //MKAnnotationView()
               annotation.coordinate = coordinate
               annotation.title = "Basurero"
+              annotation.subtitle = "Rating Stars ⭐⭐⭐⭐"
+        
+        
                 user?.AddUserAnnotations(coordenadas: trashCoord)
                 generator.impactOccurred()
               mapView.addAnnotation(annotation)
@@ -291,11 +298,6 @@ extension HomeViewController : MKMapViewDelegate{
             }
             annotationView?.leftCalloutAccessoryView = UIButton(type: .detailDisclosure)
             
-            //let LastUserImageIndex =  user?.MyImages.count
-            //let LastUserImage  = user?.MyImages[LastUserImageIndex!] //  = user?.MyImages.count
-            //let leftIconView = UIImageView(frame: CGRect.init(x: 0, y: 0, width: 53, height: 53))
-            //leftIconView.image = LastUserImage
-            //annotationView?.detailCalloutAccessoryView = leftIconView // usar este para poner al imagen
             
         }
         
@@ -313,9 +315,16 @@ extension HomeViewController : MKMapViewDelegate{
                   // present(rateViewController!, animated: true, completion: nil)
                    mapView.removeAnnotation(annView)
         }else if control == view.leftCalloutAccessoryView{
+            let annView = view.annotation!
             
-            let rateViewController = storyboard?.instantiateViewController(withIdentifier: "RateView")
+            let rateViewController = storyboard?.instantiateViewController(withIdentifier: "RateView") as?
+            RateViewController 
             present(rateViewController!, animated: true, completion: nil)
+            
+            rateViewController?.punto = Point(rating: 0, location : annView.coordinate)
+            
+            
+            
 
         }
        
