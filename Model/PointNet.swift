@@ -11,8 +11,8 @@ import Foundation
 struct PointNet: Codable {
     
     var idPunto : Int
-    var latitud : Float
-    var longuitud : Float
+    var latitud : String
+    var longitud : String
     var icono : String
     var sumaCalificacion : Int
     var cantidadUsuarioCal : Int

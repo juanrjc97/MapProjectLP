@@ -51,6 +51,27 @@ class HomeViewController: UIViewController  {
             print( user )
         }
         
+        NetworkManager.shared.getMarcadores { (points, errorMessage) in
+            guard  let points = points else{
+                           //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
+                           //self.present(alert, animated: true, completion: nil)
+                           print( errorMessage!.rawValue)
+                           return
+                       }
+                       
+                       print( points )
+        }
+        NetworkManager.shared.getMarcador(for : 1){ (point, errorMessage) in
+                  guard  let point = point else{
+                                 //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
+                                 //self.present(alert, animated: true, completion: nil)
+                                 print( errorMessage!.rawValue)
+                                 return
+                             }
+                             
+                             print( point )
+              }
+        
         
         
         
