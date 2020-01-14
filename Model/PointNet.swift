@@ -8,12 +8,36 @@
 
 import Foundation
 
-class PointNet: Codable {
+struct PointNet: Codable {
     
-    var rate: Int
+    var idPunto : Int
     var latitud : Float
     var longuitud : Float
+    var icono : String
+    var sumaCalificacion : Int
+    var cantidadUsuarioCal : Int
+    var idUsuario : Int
+    var idSector : Int
+    
+    
+    
+    
+   // var rate: Int
     //-2.1686363,-79.8873876
     
     
 }
+
+/*  {
+      "idPunto": 4,
+      "latitud": "0.00000000000000000029",
+      "longitud": "0.00000000000000000047",
+      "icono": "BP",
+      "sumaCalificacion": 4,
+      "cantidadUsuarioCal": 1,
+      "idUsuario": 1,
+      "idSector": 4
+ hacer un put para actulizar la sumCalificacion y cantidadUsuarioCal
+ 
+ 
+  }*/

@@ -16,6 +16,7 @@
 		475F5AAB23AEF16D009712C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 475F5AA923AEF16D009712C3 /* LaunchScreen.storyboard */; };
 		475F5AB623AEF16D009712C3 /* MapProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475F5AB523AEF16D009712C3 /* MapProjectTests.swift */; };
 		475F5AC123AEF16D009712C3 /* MapProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475F5AC023AEF16D009712C3 /* MapProjectUITests.swift */; };
+		47BCCD8623CD4F030050A6FC /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BCCD8523CD4F030050A6FC /* ErrorMessage.swift */; };
 		47E2452523B147F4001FC390 /* SlideInTrasition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E2452423B147F4001FC390 /* SlideInTrasition.swift */; };
 		47E2452723B17E41001FC390 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E2452623B17E41001FC390 /* UserViewController.swift */; };
 		47E3F2EC23CADA3200EFF1CF /* RateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3F2EB23CADA3200EFF1CF /* RateViewController.swift */; };
@@ -61,6 +62,7 @@
 		475F5ABC23AEF16D009712C3 /* MapProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		475F5AC023AEF16D009712C3 /* MapProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapProjectUITests.swift; sourceTree = "<group>"; };
 		475F5AC223AEF16D009712C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		47BCCD8523CD4F030050A6FC /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		47E2452423B147F4001FC390 /* SlideInTrasition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInTrasition.swift; sourceTree = "<group>"; };
 		47E2452623B17E41001FC390 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		47E3F2EB23CADA3200EFF1CF /* RateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 		475F5A9423AEF16B009712C3 = {
 			isa = PBXGroup;
 			children = (
+				47BCCD8423CD4EDC0050A6FC /* Utilities */,
 				47E3F2F423CBD05D00EFF1CF /* Model */,
 				47E3F2F123CBC94800EFF1CF /* Manager */,
 				475F5A9F23AEF16B009712C3 /* MapProject */,
@@ -158,6 +161,14 @@
 				475F5AC223AEF16D009712C3 /* Info.plist */,
 			);
 			path = MapProjectUITests;
+			sourceTree = "<group>";
+		};
+		47BCCD8423CD4EDC0050A6FC /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				47BCCD8523CD4F030050A6FC /* ErrorMessage.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		47E3F2F123CBC94800EFF1CF /* Manager */ = {
@@ -315,6 +326,7 @@
 				47E2452723B17E41001FC390 /* UserViewController.swift in Sources */,
 				470D784523B1AE100029B62A /* TipsViewController.swift in Sources */,
 				475F5AA123AEF16B009712C3 /* AppDelegate.swift in Sources */,
+				47BCCD8623CD4F030050A6FC /* ErrorMessage.swift in Sources */,
 				47E52C3A23B0178A00375AFE /* User.swift in Sources */,
 				47E3F2EE23CB84B200EFF1CF /* ScheduleViewController.swift in Sources */,
 				470D784323B1ACA00029B62A /* NewsViewController.swift in Sources */,

@@ -40,7 +40,16 @@ class HomeViewController: UIViewController  {
         
         mapView.addGestureRecognizer(longPressRecognizer)
         
-        
+        NetworkManager.shared.getUser(for: "brcetuti") { (user, errorMessage) in
+            guard  let user = user else{
+                //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
+                //self.present(alert, animated: true, completion: nil)
+                print( errorMessage!.rawValue)
+                return
+            }
+            
+            print( user )
+        }
         
         
         
