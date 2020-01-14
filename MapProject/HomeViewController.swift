@@ -72,6 +72,7 @@ class HomeViewController: UIViewController  {
                              print( point )
               }
         
+        //let usuario = UserNet(idUsuario: Int?, cedula: <#T##String?#>, nombre: <#T##String?#>, apellido: <#T##String?#>, usuario: <#T##String?#>, contrasena: //<#T##String?#>, email: <#T##String?#>)
         
         
         

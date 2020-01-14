@@ -77,7 +77,7 @@ class NetworkManager {
     func getMarcadores(completed: @escaping ([PointNet]? , ErrorMessage?) -> Void){
         
         guard let url = URL(string: baseUrlpoints) else{
-                   completed(nil, .invalidUsername)
+                   completed(nil, .invalidRequest)
                    return
                }
                let task = URLSession.shared.dataTask(with: url){data , response, error in
@@ -120,7 +120,7 @@ class NetworkManager {
         let endpoint  = baseUrlpoints + "\(idMarcador)/"
         
         guard let url = URL(string: endpoint) else{
-                          completed(nil, .invalidUsername)
+                          completed(nil, .invalidRequest)
                           return
                       }
                       let task = URLSession.shared.dataTask(with: url){data , response, error in
@@ -161,7 +161,7 @@ class NetworkManager {
     func getHorarios(completed: @escaping ( [HorariosNet]? , ErrorMessage?) -> Void){
         
         guard let url = URL(string: baseUrlhorarios) else{
-                          completed(nil, .invalidUsername)
+                          completed(nil, .invalidRequest)
                           return
                       }
                       let task = URLSession.shared.dataTask(with: url){data , response, error in
@@ -205,7 +205,7 @@ class NetworkManager {
          let endpoint  = baseUrlNoticiasTips + "\(tipoNoticia)/"
         
         guard let url = URL(string: endpoint) else{
-                                 completed(nil, .invalidUsername)
+                                 completed(nil, .invalidRequest)
                                  return
                              }
                              let task = URLSession.shared.dataTask(with: url){data , response, error in
@@ -251,9 +251,10 @@ class NetworkManager {
         let endpoint  = baseUrlNoticiasTips + "\(tipoNoticia)/"
         
         guard let url = URL(string: endpoint) else{
-                   completed(nil, .invalidUsername)
+                   completed(nil, .invalidRequest)
                    return
                }
+        
                let task = URLSession.shared.dataTask(with: url){data , response, error in
                    
                    if let _ = error{
@@ -292,6 +293,60 @@ class NetworkManager {
     
     //hacer metodos put para añadir la calificacion de los basureros
     //hacer metodo push usuario y para y añadir puntos
+    
+    func addUser(for user : UserNet , completed: @escaping (ErrorMessage?) -> Void){
+        
+        guard let url = URL(string: baseURL) else{
+            completed(.invalidRequest)
+            return
+          }
+        
+        do{
+            var request = URLRequest(url: url)
+            request.httpMethod =  "POST"
+            request.httpBody =  try JSONEncoder().encode(user)
+            
+            let task = URLSession.shared.dataTask(with: url){data , response, error in
+                //manejando errores de la peticion httpRequest
+               if let _ = error{
+                   completed(.unableToComple)
+                   return
+               }
+                
+                guard let response =  response as?  HTTPURLResponse, response.statusCode ==  200 else{
+                    completed(.InvalidResponse)
+                    return
+                    
+                }
+                
+                guard let data = data else{
+                    completed(.invalidData)
+                    return
+                }
+                do{
+                    
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let user =  try decoder.decode(UserNet.self, from: data)
+                    completed( nil) //todo correcto con la data
+                    
+                }catch{
+                    
+                    completed( .decodingProblem)
+                    
+                }
+
+            }
+            
+            task.resume()
+            
+        }catch{
+            completed(.encodignProblem)
+            
+        }
+        
+        
+    }
     
     
     
