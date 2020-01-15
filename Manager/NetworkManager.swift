@@ -306,12 +306,14 @@ class NetworkManager {
             request.httpMethod =  "POST" // application/json
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody =  try JSONEncoder().encode(user)
+            
            
            
             
             let task = URLSession.shared.dataTask(with: url){data , response, error in
                 //manejando errores de la peticion httpRequest
                  print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) )
+                 
                if let _ = error{
                 completed(.failure(.unableToComple))
                    return
@@ -322,7 +324,7 @@ class NetworkManager {
                     return
                     
                 }
-                
+                print( response.statusCode)
                 guard let data = data else{
                     completed(.failure(.invalidData))
                     return

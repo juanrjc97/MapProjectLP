@@ -20,6 +20,17 @@ class NewsViewController: UIViewController {
     @IBAction func DismmisButton(_ sender: UIButton) {
         
             dismiss(animated: true, completion: nil)
+        NetworkManager.shared.getNoticias { (noticias, errorMessage) in
+                       guard  let noticias = noticias else{
+                                                 //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
+                                                 //self.present(alert, animated: true, completion: nil)
+                                                 print( errorMessage!.rawValue)
+                                                 return
+                                             }
+                                             
+                                          print(noticias)
+                       
+                   }
     }
     /*
     // MARK: - Navigation

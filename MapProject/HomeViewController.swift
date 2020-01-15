@@ -84,7 +84,7 @@ class HomeViewController: UIViewController  {
                 print(usuario)
                 
             case .failure(let error):
-                print(error.rawValue)
+                print(error.localizedDescription)
             }
         
             NetworkManager.shared.getNoticias { (noticias, errorMessage) in
@@ -99,21 +99,8 @@ class HomeViewController: UIViewController  {
                 
             }
             
-            NetworkManager.shared.getHorarios { (horarios, errorMessage) in
-                          guard  let horarios = horarios else{
-                                                    //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
-                                                    //self.present(alert, animated: true, completion: nil)
-                                                    print( errorMessage!.rawValue)
-                                                    return
-                                                }
-                                                
-                                             print(horarios)
-                          
-                      }
+          
             
-            //print(errorMessage!.rawValue)
-    
-         
         }
         
         
