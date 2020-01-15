@@ -20,11 +20,11 @@ struct NoticiasNet : Codable {
 }
 
 /*{
-    "idNoticia": 1,
-    "titulo": "Puerto Limpio",
-    "descripcion": "Apostamos por la educación de los más pequeños para en el futuro tener ciudadanos más comprometidos con el manejo responsable de sus desechos. En esta ocasión visitamos el colegio Ecomundo para dar una charla educativa sobre el tema.",
-    "url": "https://twitter.com/i/status/1215716955245764609",
-    "tipoNoticia": "Noticia",
-    "idSector": 1
+    "idNoticia": 3,
+           "titulo": "Puerto Limpio",
+           "descripcion": "¡Este nuevo año #PonDeTuParte! Conoce el horario y frecuencia de tu sector y saca tus desechos a tiempo. Haz clic aquí: http://bit.ly/HorarioRecolecciónPL ¿Ya ingresaste? #ElQueLaHaceLaPaga",
+           "url": "https://twitter.com/i/status/1214924721403416576",
+           "tipoNoticia": "nt",
+           "idSector": 3
 },*/
 

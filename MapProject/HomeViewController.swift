@@ -59,8 +59,9 @@ class HomeViewController: UIViewController  {
                            return
                        }
                        
-                       print( points )
+                    self.setAnotations(puntos: points)
         }
+        
         NetworkManager.shared.getMarcador(for : 1){ (point, errorMessage) in
                   guard  let point = point else{
                                  //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
@@ -71,9 +72,49 @@ class HomeViewController: UIViewController  {
                              
                              print( point )
               }
+       
+        let  usuario = UserNet.init(idUsuario: 0, nombre: "beto", apellido: "melenas", usuario: "beto97", contrasena: "1234", email: "beto90@gmail,com")
         
-        //let usuario = UserNet(idUsuario: Int?, cedula: <#T##String?#>, nombre: <#T##String?#>, apellido: <#T##String?#>, usuario: <#T##String?#>, contrasena: //<#T##String?#>, email: <#T##String?#>)
+        NetworkManager.shared.addUser(for: usuario) { (result) in
+            print("Ingreso de Usuario")
+            
+            switch result {
+            case .success(let usuario):
+                
+                print(usuario)
+                
+            case .failure(let error):
+                print(error.rawValue)
+            }
         
+            NetworkManager.shared.getNoticias { (noticias, errorMessage) in
+                guard  let noticias = noticias else{
+                                          //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
+                                          //self.present(alert, animated: true, completion: nil)
+                                          print( errorMessage!.rawValue)
+                                          return
+                                      }
+                                      
+                                   print(noticias)
+                
+            }
+            
+            NetworkManager.shared.getHorarios { (horarios, errorMessage) in
+                          guard  let horarios = horarios else{
+                                                    //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
+                                                    //self.present(alert, animated: true, completion: nil)
+                                                    print( errorMessage!.rawValue)
+                                                    return
+                                                }
+                                                
+                                             print(horarios)
+                          
+                      }
+            
+            //print(errorMessage!.rawValue)
+    
+         
+        }
         
         
         
@@ -266,9 +307,23 @@ class HomeViewController: UIViewController  {
                 user?.AddUserAnnotations(coordenadas: trashCoord)
                 generator.impactOccurred()
               mapView.addAnnotation(annotation)
-             print(user?.MyTrash.count)
+             
         }
     
+    }
+    
+    func setAnotations(puntos: [PointNet]) -> Void {
+        
+        for  punto  in  puntos {
+            let annotation = MKPointAnnotation()
+            //print(Double(punto.latitud)) //(myString as NSString).doubleValue
+            annotation.coordinate = CLLocationCoordinate2D(latitude: (punto.latitud as NSString).doubleValue
+                , longitude: (punto.longitud as NSString).doubleValue)
+            annotation.title = "Basurero"
+            annotation.subtitle = "\(punto.sumaCalificacion) Stars ⭐"
+            mapView.addAnnotation(annotation)
+        }
+        
     }
     
     

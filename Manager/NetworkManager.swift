@@ -200,9 +200,9 @@ class NetworkManager {
       
     }
     
-    func getNoticias(for tipoNoticia : String ,completed: @escaping ([NoticiasNet]? , ErrorMessage?) -> Void){
+    func getNoticias(completed: @escaping ([NoticiasNet]? , ErrorMessage?) -> Void){
         
-         let endpoint  = baseUrlNoticiasTips + "\(tipoNoticia)/"
+         let endpoint  = baseUrlNoticiasTips
         
         guard let url = URL(string: endpoint) else{
                                  completed(nil, .invalidRequest)
@@ -294,45 +294,53 @@ class NetworkManager {
     //hacer metodos put para añadir la calificacion de los basureros
     //hacer metodo push usuario y para y añadir puntos
     
-    func addUser(for user : UserNet , completed: @escaping (ErrorMessage?) -> Void){
+    func addUser(for user : UserNet , completed: @escaping (Result<[UserNet], ErrorMessage>) -> Void){
         
         guard let url = URL(string: baseURL) else{
-            completed(.invalidRequest)
+            completed(.failure(.invalidRequest))
             return
           }
         
         do{
-            var request = URLRequest(url: url)
-            request.httpMethod =  "POST"
+            let request = NSMutableURLRequest(url: url)
+            request.httpMethod =  "POST" // application/json
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody =  try JSONEncoder().encode(user)
+           
+           
             
             let task = URLSession.shared.dataTask(with: url){data , response, error in
                 //manejando errores de la peticion httpRequest
+                 print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) )
                if let _ = error{
-                   completed(.unableToComple)
+                completed(.failure(.unableToComple))
                    return
                }
                 
                 guard let response =  response as?  HTTPURLResponse, response.statusCode ==  200 else{
-                    completed(.InvalidResponse)
+                    completed( .failure(.InvalidResponse))
                     return
                     
                 }
                 
                 guard let data = data else{
-                    completed(.invalidData)
+                    completed(.failure(.invalidData))
                     return
                 }
                 do{
                     
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let user =  try decoder.decode(UserNet.self, from: data)
-                    completed( nil) //todo correcto con la data
+                    
+                    //print(NSString(data: data, encoding: String.Encoding.utf8.rawValue), "aqui")
+                    let users =  try decoder.decode([UserNet].self, from: data)
+                    
+                    //print(user)// NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                    completed(.success(users)) //todo correcto con la data
                     
                 }catch{
                     
-                    completed( .decodingProblem)
+                    completed(.failure(.decodingProblem))
                     
                 }
 
@@ -341,7 +349,7 @@ class NetworkManager {
             task.resume()
             
         }catch{
-            completed(.encodignProblem)
+            completed(.failure(.encodignProblem))
             
         }
         
