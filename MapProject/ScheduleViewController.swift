@@ -21,7 +21,7 @@ struct CellData{
 
 
 
-class ScheduleViewController: UITableViewController {
+class ScheduleViewController: UITableViewController  {
 
    
     var tableViewData = [CellData]()
@@ -54,6 +54,7 @@ class ScheduleViewController: UITableViewController {
                                   }
             
             for horario in horarios {
+                
                 if horario.idSector == self.celdaNorte.sector {
                              let fecha = "Dia: \(horario.dia)                 Hora: \(horario.hora)"
                     self.celdaNorte.SeccionData.append(fecha)

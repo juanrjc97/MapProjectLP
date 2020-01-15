@@ -28,7 +28,7 @@ class NewsViewController: UIViewController {
                                                  return
                                              }
                                              
-                                          print(noticias)
+                                          //print(noticias)
                        
                    }
     }

@@ -23,10 +23,12 @@ class HomeViewController: UIViewController  {
     
     let transition = SlideInTrasition()
     
+    var puntosDB = [PointNet]()
+    
     //user i
     var user : User?
     
-    
+    // coordenadas base aerea -2.1718083,-79.8867489
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,17 +42,10 @@ class HomeViewController: UIViewController  {
         
         mapView.addGestureRecognizer(longPressRecognizer)
         
-        NetworkManager.shared.getUser(for: "brcetuti") { (user, errorMessage) in
-            guard  let user = user else{
-                //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
-                //self.present(alert, animated: true, completion: nil)
-                print( errorMessage!.rawValue)
-                return
-            }
-            
-            print( user )
-        }
+       //delete a pint
+      
         
+        //maraca los basureros que esten en la base de datos
         NetworkManager.shared.getMarcadores { (points, errorMessage) in
             guard  let points = points else{
                            //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
@@ -61,7 +56,19 @@ class HomeViewController: UIViewController  {
                        
                     self.setAnotations(puntos: points)
         }
+        //obtengo un usuario con su :usuario: registrado en la base
+        NetworkManager.shared.getUser(for: "brcetuti") { (user, errorMessage) in
+                   guard  let user = user else{
+                       //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
+                       //self.present(alert, animated: true, completion: nil)
+                       print( errorMessage!.rawValue)
+                       return
+                   }
+                   
+                   print( user )
+               }
         
+        //obtengo un marcador mediante su codigo
         NetworkManager.shared.getMarcador(for : 1){ (point, errorMessage) in
                   guard  let point = point else{
                                  //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
@@ -73,7 +80,7 @@ class HomeViewController: UIViewController  {
                              print( point )
               }
        
-        let  usuario = UserNet.init(idUsuario: 0, nombre: "beto", apellido: "melenas", usuario: "beto97", contrasena: "1234", email: "beto90@gmail,com")
+        let  usuario = UserNet.init(nombre: "Juan", apellido: "Jimenez", usuario: "jjSwift2", contrasena: "1234", email: "beto90@gmail.com")
         
         NetworkManager.shared.addUser(for: usuario) { (result) in
             print("Ingreso de Usuario")
@@ -84,26 +91,12 @@ class HomeViewController: UIViewController  {
                 print(usuario)
                 
             case .failure(let error):
-                print(error.localizedDescription)
+                print(error.rawValue)
             }
-        
-            NetworkManager.shared.getNoticias { (noticias, errorMessage) in
-                guard  let noticias = noticias else{
-                                          //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
-                                          //self.present(alert, animated: true, completion: nil)
-                                          print( errorMessage!.rawValue)
-                                          return
-                                      }
-                                      
-                                   print(noticias)
-                
-            }
-            
-          
-            
+
         }
         
-        
+       
         
         //inicalizar usuario
         self.user = User()
@@ -289,11 +282,28 @@ class HomeViewController: UIViewController  {
               let annotation  =  MKPointAnnotation()  //MKAnnotationView()
               annotation.coordinate = coordinate
               annotation.title = "Basurero"
-              annotation.subtitle = "Rating Stars ⭐"
+              annotation.subtitle = " ⭐"
         
-                user?.AddUserAnnotations(coordenadas: trashCoord)
-                generator.impactOccurred()
+              let pointNt = PointNet(latitud: String(coordinate.latitude), longitud: String(coordinate.longitude), icono: "BG",sumaCalificacion: 5, cantidadUsuarioCal: 1, idUsuario: 1, idSector: 1)
+              generator.impactOccurred()
               mapView.addAnnotation(annotation)
+        //aqui se escribe el punto en la base de datos usando el api
+        NetworkManager.shared.addPoint(for: pointNt) { (result) in
+            print("Ingreso de Punto")
+                            
+                       
+                       switch result {
+                       case .failure(let error):
+                        print(error.localizedDescription.description)
+                           
+                       case .success(let pointNt):
+                       
+                            print(pointNt)
+                        
+                            
+                       }
+            
+        }
              
         }
     
@@ -302,6 +312,7 @@ class HomeViewController: UIViewController  {
     func setAnotations(puntos: [PointNet]) -> Void {
         
         for  punto  in  puntos {
+            puntosDB.append(punto)
             let annotation = MKPointAnnotation()
             //print(Double(punto.latitud)) //(myString as NSString).doubleValue
             annotation.coordinate = CLLocationCoordinate2D(latitude: (punto.latitud as NSString).doubleValue
@@ -386,8 +397,34 @@ extension HomeViewController : MKMapViewDelegate{
             let annView = view.annotation! //aqui recupero la anotacion de mapa a la que le di tap
                   //let rateViewController = storyboard?.instantiateViewController(withIdentifier: "RateView")
                   // present(rateViewController!, animated: true, completion: nil)
-                   mapView.removeAnnotation(annView)
+           // print(String(annView.coordinate.latitude), String(annView.coordinate.longitude))
+            for basurero in puntosDB {
+                //basurero.latitud == String(annView.coordinate.latitude) && basurero.longitud == String(annView.coordinate.longitude)
+                if basurero.latitud.range(of:String(annView.coordinate.latitude) ) != nil {
+                    
+                    mapView.removeAnnotation(annView)
+                    NetworkManager.shared.deletePoint(for: basurero.idPunto!) { (result) in
+                                     
+                                     switch result {
+                                         
+                                     case .failure(let error):
+                                         print(error.rawValue)
+                                     case .success(_):
+                                         print("el basurero se borro con exito")
+                                     }
+                                     
+                                 }
+                }else{
+                    print("No conincide basurero ")
+                    break
+                    //print(basurero)
+                }
+                   
+                
+            }
+            
         }else if control == view.leftCalloutAccessoryView{
+            
             let annView = view.annotation!
             
             let rateViewController = storyboard?.instantiateViewController(withIdentifier: "RateView") as?
@@ -395,17 +432,11 @@ extension HomeViewController : MKMapViewDelegate{
             present(rateViewController!, animated: true, completion: nil)
             
             rateViewController?.punto = Point(rating: 0, location : annView.coordinate)
-            
-            
-            
 
         }
-       
-        
-        
+ 
     }
-    
-    
+
     
 }
 
@@ -425,45 +456,3 @@ extension HomeViewController : UIViewControllerTransitioningDelegate{
 
 
 
-/*
-
-if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) { //esto significa que podemos usar la camara de usuario
-               var TrashPhoto: UIImage!
-               let imagePicker = UIImagePickerController()
-               imagePicker.delegate = self  //significa  que esta clase  es su propia de delegada que significa que puede controllar la camara
-               imagePicker.sourceType = UIImagePickerController.SourceType.camera
-               imagePicker.allowsEditing = false
-               self.present(imagePicker, animated: true, completion: nil)
-         
-         //UIViewController top = [UIApplication sharedApplication].keyWindow.rootViewController;
-         //[top presentViewController:secondView animated:YES completion: nil];
-         
- //esta funcion interna hace que lo que se obtien  de la camara se agregue a la imagen que se crea al hacer el longPressGesture
-         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-                
-                
-                //esto toma la obteniene la imagen que se capturo la guarda en una constante pickedImage y luego lo añade al ImageView
-            if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                    TrashPhoto = pickedImage
-                let location = gestureReconizer.location(in: mapView)
-                let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
-                 //creando las coordenadas de los basureros del usuario
-                let trashCoord = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                 //add anotation
-                let annotation  =  MKPointAnnotation()  //MKAnnotationView()
-                 annotation.coordinate = coordinate
-                 annotation.title = "Basurero"
-                 // con anotation .tittle le ponemos el titulo a la anotatcion en el mapa aqui aplicar reverse location
-                 mapView.addAnnotation(annotation)
-                 user?.AddUserAnnotations(coordenadas: trashCoord)
-                }
-                
-                user?.AddUserImages(imagen: TrashPhoto)
-                picker.dismiss(animated: true, completion: nil)
-                
-            }
-         
-           }
- 
-
-*/

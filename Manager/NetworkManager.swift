@@ -14,7 +14,9 @@ class NetworkManager {
     //http://0.0.0.0:8000/usuarios/
     //http://192.168.100.14:8000/puntoRecoleccion/
     //http://192.168.100.14:8000/noticia/
+    //http://127.0.0.1:8000/usuarios/
     
+    //nueva http://0.0.0.0:8000/usuarios/
     
     static let shared   = NetworkManager()
     let baseURL = "http://192.168.100.14:8000/usuarios/"
@@ -246,52 +248,6 @@ class NetworkManager {
     
     
     
-    func getTips(for tipoNoticia : String ,completed: @escaping ([NoticiasNet]? , ErrorMessage?) -> Void){
-        
-        let endpoint  = baseUrlNoticiasTips + "\(tipoNoticia)/"
-        
-        guard let url = URL(string: endpoint) else{
-                   completed(nil, .invalidRequest)
-                   return
-               }
-        
-               let task = URLSession.shared.dataTask(with: url){data , response, error in
-                   
-                   if let _ = error{
-                       completed(nil,.unableToComple)
-                       return
-                   }
-                   
-        
-                   guard let response =  response as?  HTTPURLResponse, response.statusCode ==  200 else{
-                       completed(nil, .InvalidResponse)
-                       return
-                       
-                   }
-                   
-                   guard let data = data else{
-                       completed(nil,.invalidData)
-                       return
-                   }
-                   
-                   do{
-                       let decoder = JSONDecoder()
-                       decoder.keyDecodingStrategy = .convertFromSnakeCase
-                       let tips =  try decoder.decode([NoticiasNet].self, from: data)
-                       completed( tips, nil)
-                       
-                   }catch{
-                       completed(nil,.invalidData)
-                       
-                   }
-                   
-               }
-
-               task.resume()
- 
-    }
-    
-    //hacer metodos put para añadir la calificacion de los basureros
     //hacer metodo push usuario y para y añadir puntos
     
     func addUser(for user : UserNet , completed: @escaping (Result<[UserNet], ErrorMessage>) -> Void){
@@ -301,27 +257,30 @@ class NetworkManager {
             return
           }
         
-        do{
-            let request = NSMutableURLRequest(url: url)
+        do{//NSMutableURLRequest
+            var request = URLRequest(url: url)
             request.httpMethod =  "POST" // application/json
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Acept")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody =  try JSONEncoder().encode(user)
             
            
            
             
-            let task = URLSession.shared.dataTask(with: url){data , response, error in
+            let task = URLSession.shared.dataTask(with: request){data , response, error in
                 //manejando errores de la peticion httpRequest
-                 print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) )
-                 
+                //print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) )
+                
                if let _ = error{
                 completed(.failure(.unableToComple))
                    return
                }
                 
-                guard let response =  response as?  HTTPURLResponse, response.statusCode ==  200 else{
+                guard let response =  response as? HTTPURLResponse, response.statusCode ==  200 else{
                     completed( .failure(.InvalidResponse))
+                   
                     return
+                    
                     
                 }
                 print( response.statusCode)
@@ -359,7 +318,173 @@ class NetworkManager {
     }
     
     
+    func addPoint(for point : PointNet , completed: @escaping (Result<[PointNet], ErrorMessage>) -> Void){
+        
+        guard let url = URL(string: baseUrlpoints) else{
+            completed(.failure(.invalidRequest))
+            return
+          }
+        
+        do{//NSMutableURLRequest
+            var request = URLRequest(url: url)
+            request.httpMethod =  "POST" // application/json
+            request.addValue("application/json", forHTTPHeaderField: "Acept")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody =  try JSONEncoder().encode(point)
+ 
+            let task = URLSession.shared.dataTask(with: request){data , response, error in
+                //manejando errores de la peticion httpRequest
+                //print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) )
+                 
+               if let _ = error{
+                completed(.failure(.unableToComple))
+                   return
+               }
+                
+               /* guard let response =  response as? HTTPURLResponse, response.statusCode ==  200 else{
+                    completed( .failure(.InvalidResponse))
+                   
+                    return
+                    
+                    
+                }*/
+                //print( response.statusCode)
+                guard let data = data else{
+                    completed(.failure(.invalidData))
+                    return
+                }
+                do{
+                    
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    
+                    //print(NSString(data: data, encoding: String.Encoding.utf8.rawValue), "aqui")
+                    let points =  try decoder.decode([PointNet].self, from: data)
+                    
+                    //print(user)// NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                    completed(.success(points)) //todo correcto con la data
+                    
+                }catch{
+                    
+                    completed(.failure(.decodingProblem))
+                    
+                }
+
+            }
+            
+            task.resume()
+            
+        }catch{
+            completed(.failure(.encodignProblem))
+            
+        }
+        
+        
+    }
     
     
+    //hacer metodos put para añadir la calificacion de los basureros
     
+    
+    //hacer metodo delete para borrar un basurero marcado en el mapa
+    
+    func deletePoint(for id : Int , completed: @escaping (Result< PointNet ,ErrorMessage>) -> Void){
+
+         let endpoint  = baseUrlpoints + "\(id)/"
+        
+          guard let url = URL(string: endpoint) else{
+              completed(.failure(.invalidRequest))
+              return
+            }
+
+              var request = URLRequest(url: url)
+              request.httpMethod =  "DELETE" // application/json
+              request.addValue("application/json", forHTTPHeaderField: "Acept")
+              request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+              //request.httpBody =  try JSONSerialization.data(withJSONObject: id, options: [])
+
+              let task = URLSession.shared.dataTask(with: request){data , response, error in
+                  //manejando errores de la peticion httpRequest
+                  //print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) )
+                  
+                 if let _ = error{
+                  completed(.failure(.unableToComple))
+                     return
+                 }
+
+                  guard let data = data else{
+                      completed(.failure(.invalidData))
+                      return
+                  }
+                  
+              }
+              
+              task.resume()
+          
+      }
+    
+    func updateRating(for rating : Int, for id : Int, completed: @escaping (Result<[PointNet], ErrorMessage>) -> Void){
+           
+          let endpoint  = baseUrlpoints + "\(id)/"
+           guard let url = URL(string: endpoint) else{
+               completed(.failure(.invalidRequest))
+               return
+             }
+           
+           do{//NSMutableURLRequest
+               var request = URLRequest(url: url)
+               request.httpMethod =  "POST" // application/json
+               request.addValue("application/json", forHTTPHeaderField: "Acept")
+               request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody =  try JSONSerialization.data(withJSONObject: rating, options: [])
+    
+               let task = URLSession.shared.dataTask(with: request){data , response, error in
+                   //manejando errores de la peticion httpRequest
+                   //print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) )
+                    
+                  if let _ = error{
+                   completed(.failure(.unableToComple))
+                      return
+                  }
+                  /* guard let response =  response as? HTTPURLResponse, response.statusCode ==  200 else{
+                       completed( .failure(.InvalidResponse))
+                      
+                       return
+                       
+                       
+                   }*/
+                   //print( response.statusCode)
+                   guard let data = data else{
+                       completed(.failure(.invalidData))
+                       return
+                   }
+                   do{
+                       
+                       let decoder = JSONDecoder()
+                       decoder.keyDecodingStrategy = .convertFromSnakeCase
+                       
+                       //print(NSString(data: data, encoding: String.Encoding.utf8.rawValue), "aqui")
+                       let points =  try decoder.decode([PointNet].self, from: data)
+                       
+                       //print(user)// NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                       completed(.success(points)) //todo correcto con la data
+                       
+                   }catch{
+                       
+                       completed(.failure(.decodingProblem))
+                       
+                   }
+
+               }
+               
+               task.resume()
+               
+           }catch{
+               completed(.failure(.encodignProblem))
+               
+           }
+           
+           
+       }
+       
 }
