@@ -12,7 +12,7 @@ class RateViewController: UIViewController {
 
     @IBOutlet var starsBtn: [UIButton]!
      var rate : Int = 0  ;
-     var  punto : Point?
+    var  punto : PointNet!
     override func viewDidLoad() {
         super.viewDidLoad()
         //print(punto?.location)
@@ -44,10 +44,23 @@ class RateViewController: UIViewController {
     }
     
     @IBAction func DidTapSubmit(_ sender: UIButton) {
+        punto.sumaCalificacion = rate
+        print(punto)
+                //calificacion / id
+        NetworkManager.shared.updateRating(for:  punto) { (result) in
+                         switch result {
+                                                                    
+                                case .failure(let error):
+                                        print(error.rawValue)
+                                case .success(_):
+                                        print("el rating se actualizo con exito")
+                            }
+                    
+        }
         
          print("this trash has " , rate , "stars")
-        punto?.rate =  rate
-        print( "Estrellas" ,  punto?.rate)
+        //punto?.rate =  rate
+        //print( "Estrellas" ,  punto?.rate)
         dismiss(animated: true, completion: nil)
     }
     /*

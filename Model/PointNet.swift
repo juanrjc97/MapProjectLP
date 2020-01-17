@@ -10,7 +10,7 @@ import Foundation
 
 struct PointNet: Codable {
     
-    var idPunto : Int?
+    var idPunto : Int
     var latitud : String
     var longitud : String
     var icono : String

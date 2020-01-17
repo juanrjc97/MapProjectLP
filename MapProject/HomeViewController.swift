@@ -42,20 +42,8 @@ class HomeViewController: UIViewController  {
         
         mapView.addGestureRecognizer(longPressRecognizer)
         
-       //delete a pint
-      
+          self.setAnotations()
         
-        //maraca los basureros que esten en la base de datos
-        NetworkManager.shared.getMarcadores { (points, errorMessage) in
-            guard  let points = points else{
-                           //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
-                           //self.present(alert, animated: true, completion: nil)
-                           print( errorMessage!.rawValue)
-                           return
-                       }
-                       
-                    self.setAnotations(puntos: points)
-        }
         //obtengo un usuario con su :usuario: registrado en la base
         NetworkManager.shared.getUser(for: "brcetuti") { (user, errorMessage) in
                    guard  let user = user else{
@@ -79,6 +67,7 @@ class HomeViewController: UIViewController  {
                              
                              print( point )
               }
+        
        
         let  usuario = UserNet.init(nombre: "Juan", apellido: "Jimenez", usuario: "jjSwift2", contrasena: "1234", email: "beto90@gmail.com")
         
@@ -268,11 +257,14 @@ class HomeViewController: UIViewController  {
     
    @objc func handleTap( gestureReconizer: UILongPressGestureRecognizer){
     //feddback
+   
       let generator = UIImpactFeedbackGenerator(style: .heavy)
         //let Fatherpoint = MKAnnotationView()
         //Fatherpoint.annotation?.coordinate = coordinate
         // con anotation .tittle le ponemos el titulo a la anotatcion en el mapa aqui aplicar reverse location
     if gestureReconizer.state == .ended{
+        print("este es  con self = ", self.puntosDB)
+           print(puntosDB)
         
              let location =    gestureReconizer.location(in: self.mapView)  //  gestureReconizer.location(in: mapView)
               let coordinate = self.mapView.convert(location, toCoordinateFrom: self.mapView)
@@ -283,15 +275,17 @@ class HomeViewController: UIViewController  {
               annotation.coordinate = coordinate
               annotation.title = "Basurero"
               annotation.subtitle = " ⭐"
+         //puntosDB.last!.idPunto
+       
+        let pointNt = PointNet(idPunto:0  , latitud: String(coordinate.latitude), longitud: String(coordinate.longitude), icono: "BG",sumaCalificacion: 5, cantidadUsuarioCal: 1, idUsuario: 1, idSector: 1)
         
-              let pointNt = PointNet(latitud: String(coordinate.latitude), longitud: String(coordinate.longitude), icono: "BG",sumaCalificacion: 5, cantidadUsuarioCal: 1, idUsuario: 1, idSector: 1)
               generator.impactOccurred()
               mapView.addAnnotation(annotation)
+              puntosDB.append(pointNt)
         //aqui se escribe el punto en la base de datos usando el api
         NetworkManager.shared.addPoint(for: pointNt) { (result) in
             print("Ingreso de Punto")
-                            
-                       
+                                                   
                        switch result {
                        case .failure(let error):
                         print(error.localizedDescription.description)
@@ -309,17 +303,30 @@ class HomeViewController: UIViewController  {
     
     }
     
-    func setAnotations(puntos: [PointNet]) -> Void {
+    func setAnotations() -> Void {
         
-        for  punto  in  puntos {
-            puntosDB.append(punto)
-            let annotation = MKPointAnnotation()
-            //print(Double(punto.latitud)) //(myString as NSString).doubleValue
-            annotation.coordinate = CLLocationCoordinate2D(latitude: (punto.latitud as NSString).doubleValue
-                , longitude: (punto.longitud as NSString).doubleValue)
-            annotation.title = "Basurero"
-            annotation.subtitle = "\(punto.sumaCalificacion) Stars ⭐"
-            mapView.addAnnotation(annotation)
+        NetworkManager.shared.getMarcadores { (puntos, errorMessage) in
+            guard  let puntos = puntos else{
+                //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
+                //self.present(alert, animated: true, completion: nil)
+                print( errorMessage!.rawValue)
+                return
+            }
+            
+            for  punto  in puntos {
+                self.puntosDB.append(punto)
+                let annotation = MKPointAnnotation()
+                //print(Double(punto.latitud)) //(myString as NSString).doubleValue
+                annotation.coordinate = CLLocationCoordinate2D(latitude: (punto.latitud as NSString).doubleValue
+                    , longitude: (punto.longitud as NSString).doubleValue)
+                annotation.title = "Basurero"
+                annotation.subtitle = "\(punto.sumaCalificacion) Stars ⭐"
+
+                self.mapView.addAnnotation(annotation)
+            }
+            
+            
+            
         }
         
     }
@@ -392,36 +399,43 @@ extension HomeViewController : MKMapViewDelegate{
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+       
         
         if control == view.rightCalloutAccessoryView {
             let annView = view.annotation! //aqui recupero la anotacion de mapa a la que le di tap
                   //let rateViewController = storyboard?.instantiateViewController(withIdentifier: "RateView")
                   // present(rateViewController!, animated: true, completion: nil)
            // print(String(annView.coordinate.latitude), String(annView.coordinate.longitude))
+            
             for basurero in puntosDB {
                 //basurero.latitud == String(annView.coordinate.latitude) && basurero.longitud == String(annView.coordinate.longitude)
-                if basurero.latitud.range(of:String(annView.coordinate.latitude) ) != nil {
-                    
-                    mapView.removeAnnotation(annView)
-                    NetworkManager.shared.deletePoint(for: basurero.idPunto!) { (result) in
+                
+                if basurero.latitud.range(of:String(annView.coordinate.latitude) ) != nil && basurero.longitud.range(of:String(annView.coordinate.longitude) ) != nil {
+                    NetworkManager.shared.deletePoint(for: basurero.idPunto) { (result) in
                                      
                                      switch result {
                                          
                                      case .failure(let error):
-                                         print(error.rawValue)
+                                         print("error al borrar " ,error.rawValue)
+                                        
                                      case .success(_):
+                                        
                                          print("el basurero se borro con exito")
+                                        
+                                         self.puntosDB.removeAll()
+                                         
                                      }
                                      
                                  }
-                }else{
-                    print("No conincide basurero ")
-                    break
-                    //print(basurero)
+                    mapView.removeAnnotation(annView)
+                    self.setAnotations()
                 }
                    
                 
             }
+            
+            
+        
             
         }else if control == view.leftCalloutAccessoryView{
             
@@ -430,8 +444,15 @@ extension HomeViewController : MKMapViewDelegate{
             let rateViewController = storyboard?.instantiateViewController(withIdentifier: "RateView") as?
             RateViewController 
             present(rateViewController!, animated: true, completion: nil)
+            for basurero in puntosDB {
+                        //basurero.latitud == String(annView.coordinate.latitude) && basurero.longitud == String(annView.coordinate.longitude)
+                        if basurero.latitud.range(of:String(annView.coordinate.latitude) ) != nil {
+                            rateViewController?.punto = basurero
+                           
+                        }
+
+                    }
             
-            rateViewController?.punto = Point(rating: 0, location : annView.coordinate)
 
         }
  
