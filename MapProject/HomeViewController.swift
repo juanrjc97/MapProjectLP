@@ -26,7 +26,7 @@ class HomeViewController: UIViewController  {
     var puntosDB = [PointNet]()
     
     //user i
-    var user : User?
+    var user : UserNet?
     
     // coordenadas base aerea -2.1718083,-79.8867489
     
@@ -44,51 +44,9 @@ class HomeViewController: UIViewController  {
         
           self.setAnotations()
         
-        //obtengo un usuario con su :usuario: registrado en la base
-        NetworkManager.shared.getUser(for: "brcetuti") { (user, errorMessage) in
-                   guard  let user = user else{
-                       //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
-                       //self.present(alert, animated: true, completion: nil)
-                       print( errorMessage!.rawValue)
-                       return
-                   }
-                   
-                   print( user )
-               }
-        
-        //obtengo un marcador mediante su codigo
-        NetworkManager.shared.getMarcador(for : 1){ (point, errorMessage) in
-                  guard  let point = point else{
-                                 //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
-                                 //self.present(alert, animated: true, completion: nil)
-                                 print( errorMessage!.rawValue)
-                                 return
-                             }
-                             
-                             print( point )
-              }
-        
-       
-        let  usuario = UserNet.init(nombre: "Juan", apellido: "Jimenez", usuario: "jjSwift2", contrasena: "1234", email: "beto90@gmail.com")
-        
-        NetworkManager.shared.addUser(for: usuario) { (result) in
-            print("Ingreso de Usuario")
-            
-            switch result {
-            case .success(let usuario):
-                
-                print(usuario)
-                
-            case .failure(let error):
-                print(error.rawValue)
-            }
-
-        }
-        
-       
         
         //inicalizar usuario
-        self.user = User()
+       // self.user = User()
         
     }
     

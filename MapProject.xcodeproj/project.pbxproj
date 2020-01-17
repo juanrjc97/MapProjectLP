@@ -16,6 +16,10 @@
 		475F5AAB23AEF16D009712C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 475F5AA923AEF16D009712C3 /* LaunchScreen.storyboard */; };
 		475F5AB623AEF16D009712C3 /* MapProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475F5AB523AEF16D009712C3 /* MapProjectTests.swift */; };
 		475F5AC123AEF16D009712C3 /* MapProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475F5AC023AEF16D009712C3 /* MapProjectUITests.swift */; };
+		477B18BE23D1567A006EC357 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477B18BD23D1567A006EC357 /* MainViewController.swift */; };
+		477B18C023D1569C006EC357 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477B18BF23D1569C006EC357 /* SignUpViewController.swift */; };
+		477B18C223D156A8006EC357 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477B18C123D156A8006EC357 /* LoginViewController.swift */; };
+		477B18C523D166E5006EC357 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477B18C423D166E5006EC357 /* Utilities.swift */; };
 		47BCCD8623CD4F030050A6FC /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BCCD8523CD4F030050A6FC /* ErrorMessage.swift */; };
 		47BCCD8823CD614F0050A6FC /* NoticiasNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BCCD8723CD614F0050A6FC /* NoticiasNet.swift */; };
 		47BCCD8A23CD616B0050A6FC /* HorariosNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BCCD8923CD616B0050A6FC /* HorariosNet.swift */; };
@@ -64,6 +68,10 @@
 		475F5ABC23AEF16D009712C3 /* MapProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		475F5AC023AEF16D009712C3 /* MapProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapProjectUITests.swift; sourceTree = "<group>"; };
 		475F5AC223AEF16D009712C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		477B18BD23D1567A006EC357 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		477B18BF23D1569C006EC357 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		477B18C123D156A8006EC357 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		477B18C423D166E5006EC357 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = ../../../../Downloads/CustomLoginDemo/CustomLoginDemo/Helpers/Utilities.swift; sourceTree = "<group>"; };
 		47BCCD8523CD4F030050A6FC /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		47BCCD8723CD614F0050A6FC /* NoticiasNet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticiasNet.swift; sourceTree = "<group>"; };
 		47BCCD8923CD616B0050A6FC /* HorariosNet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorariosNet.swift; sourceTree = "<group>"; };
@@ -110,6 +118,7 @@
 				47BCCD8423CD4EDC0050A6FC /* Utilities */,
 				47E3F2F423CBD05D00EFF1CF /* Model */,
 				47E3F2F123CBC94800EFF1CF /* Manager */,
+				477B18C323D156CA006EC357 /* View  Controlles */,
 				475F5A9F23AEF16B009712C3 /* MapProject */,
 				475F5AB423AEF16D009712C3 /* MapProjectTests */,
 				475F5ABF23AEF16D009712C3 /* MapProjectUITests */,
@@ -167,9 +176,20 @@
 			path = MapProjectUITests;
 			sourceTree = "<group>";
 		};
+		477B18C323D156CA006EC357 /* View  Controlles */ = {
+			isa = PBXGroup;
+			children = (
+				477B18BD23D1567A006EC357 /* MainViewController.swift */,
+				477B18BF23D1569C006EC357 /* SignUpViewController.swift */,
+				477B18C123D156A8006EC357 /* LoginViewController.swift */,
+			);
+			path = "View  Controlles";
+			sourceTree = "<group>";
+		};
 		47BCCD8423CD4EDC0050A6FC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				477B18C423D166E5006EC357 /* Utilities.swift */,
 				47BCCD8523CD4F030050A6FC /* ErrorMessage.swift */,
 			);
 			path = Utilities;
@@ -332,6 +352,9 @@
 				475F5AA323AEF16B009712C3 /* HomeViewController.swift in Sources */,
 				47E2452723B17E41001FC390 /* UserViewController.swift in Sources */,
 				47BCCD8A23CD616B0050A6FC /* HorariosNet.swift in Sources */,
+				477B18C023D1569C006EC357 /* SignUpViewController.swift in Sources */,
+				477B18C223D156A8006EC357 /* LoginViewController.swift in Sources */,
+				477B18C523D166E5006EC357 /* Utilities.swift in Sources */,
 				470D784523B1AE100029B62A /* TipsViewController.swift in Sources */,
 				475F5AA123AEF16B009712C3 /* AppDelegate.swift in Sources */,
 				47BCCD8623CD4F030050A6FC /* ErrorMessage.swift in Sources */,
@@ -340,6 +363,7 @@
 				470D784323B1ACA00029B62A /* NewsViewController.swift in Sources */,
 				47E3F2F023CB8EAB00EFF1CF /* Point.swift in Sources */,
 				47E52C3C23B043BC00375AFE /* MenuViewController.swift in Sources */,
+				477B18BE23D1567A006EC357 /* MainViewController.swift in Sources */,
 				47E3F2EC23CADA3200EFF1CF /* RateViewController.swift in Sources */,
 				47E2452523B147F4001FC390 /* SlideInTrasition.swift in Sources */,
 			);
