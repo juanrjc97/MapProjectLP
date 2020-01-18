@@ -10,16 +10,58 @@ import UIKit
 
 class UserViewController: UIViewController {
 
+    var user : String!
+    
+    @IBOutlet weak var userName: UILabel!
+    
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var lastName: UILabel!
+    
+    
+    @IBOutlet weak var email: UILabel!
+    
+    @IBOutlet weak var password: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(user)
+        setInfo()
         ConfigUI()
         // Do any additional setup after loading the view.
     }
     
     
-    @IBAction func DismmisButton(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+    func setInfo()  {
+        NetworkManager.shared.getUser(for: user) { (userdb, ErrorMessage) in
+            
+            guard  let User = userdb else{
+                         //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
+                         //self.present(alert, animated: true, completion: nil)
+                         print( ErrorMessage!.rawValue)
+                         return
+                     }
+            DispatchQueue.main.async {
+                                          self.userName.text = User.usuario
+                                          self.name.text =  User.nombre
+                                          self.lastName.text  = User.apellido
+                                          self.email.text =  User.email
+                                          self.password.text  = "**********"
+                                          
+            }
+            
+            
+                     
+        }
     }
+    
+    
+    
+    
+    @IBAction func DoneButton(_ sender: Any) {
+         dismiss(animated: true, completion: nil)
+    }
+    
     
     
     func ConfigUI() {

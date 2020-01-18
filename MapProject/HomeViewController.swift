@@ -27,13 +27,14 @@ class HomeViewController: UIViewController  {
     
     //user i
     var userid : Int!
+    
     var username : String!
     
     // coordenadas base aerea -2.1718083,-79.8867489
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        print("este es el id del usuario : " ,userid, username)
         checkLocationServices()
         mapView.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
@@ -44,7 +45,7 @@ class HomeViewController: UIViewController  {
         mapView.addGestureRecognizer(longPressRecognizer)
         
           self.setAnotations()
-          print("este es el id del usuario : " ,userid, username)
+          
         
         //inicalizar usuario
        // self.user = User()
@@ -77,8 +78,11 @@ class HomeViewController: UIViewController  {
       func newTapMenu(_ menuType : MenuType) {
          switch menuType {
          case .user:
-            guard let userController =  storyboard?.instantiateViewController(withIdentifier: "UserViewController") else {return}
-            present(userController, animated: true, completion: nil)
+            let userController =  storyboard?.instantiateViewController(withIdentifier: "UserViewController") as?
+            UserViewController
+            userController!.user = username
+            present(userController!, animated: true, completion: nil)
+            
          case .news:
             guard let newsController =  storyboard?.instantiateViewController(withIdentifier: "NewsViewController") else {return}
             present(newsController, animated: true, completion: nil)

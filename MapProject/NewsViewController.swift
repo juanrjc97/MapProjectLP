@@ -49,11 +49,10 @@ class NewsViewController: UIViewController {
     }
 
     
-    @IBAction func DismmisButton(_ sender: UIButton) {
-        
+    @IBAction func TapDone(_ sender: UIBarButtonItem) {
             dismiss(animated: true, completion: nil)
-        
     }
+    
    
 
 }

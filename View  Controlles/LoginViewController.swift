@@ -14,7 +14,7 @@ import UIKit
 class LoginViewController: UIViewController {
     
     var userLogin : UserNet?
-    var username : String = ""
+    
     
     
     @IBOutlet weak var EmailLbl: UITextField!
@@ -40,15 +40,22 @@ class LoginViewController: UIViewController {
     
     @IBAction func LoginBtn(_ sender: UIButton) {
         
+        
+        
+        
+        
+       //guard  let homeviewController  =  storyboard?.instantiateViewController(identifier: "HomeVC") as? HomeViewController else {return}
+           //view.window?.rootViewController = homeviewController
+           //view.window?.makeKeyAndVisible()
+       // present(homeviewController, animated: true, completion: nil)
         //validate text fields
         
         //signing in the user
 
-       
-        //let password = PasswordLbl.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-
-        
         //validate the fields
+        
+        //cdesbloquear esto luego
+        /*
         let error = validateFields()
         if error  != nil {
             print("no cambia de pestaña")
@@ -58,28 +65,41 @@ class LoginViewController: UIViewController {
            //obtengo un usuario con su :usuario: registrado en la base
             //print(iduser)
             //transtion to home//id : iduser
+            let home = HomeViewController()
+            
+            home.username = "beto"
             self.goHome()
             // self.goHome()
            
-        }
+        }*/
    
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if(segue.identifier == "SendUser"){
+               let displayVC = segue.destination  as! HomeViewController
+            displayVC.username = EmailLbl.text
+        }
+    }
     
+    func setUpElements()  {
+          ErrorLbl.alpha =  0
+          
+          //style
+          Utilities.styleTextField(EmailLbl)
+          Utilities.styleTextField(PasswordLbl)
+          Utilities.styleFilledButton(LoginBtn)
+          
+      }
+    
+    /*
     func showError(_ message: String)  {
         ErrorLbl.text = message
         ErrorLbl.alpha = 1
     }
     
-    func setUpElements()  {
-        ErrorLbl.alpha =  0
-        
-        //style
-        Utilities.styleTextField(EmailLbl)
-        Utilities.styleTextField(PasswordLbl)
-        Utilities.styleFilledButton(LoginBtn)
-        
-    }
+  
 //user : UserNet
     //id : Int
     func goHome( )  {
@@ -125,11 +145,8 @@ class LoginViewController: UIViewController {
                           self.userLogin = nil
                           print(validPassword)
                       }else{
-                         // let home = HomeViewController()
-                          self.userLogin = user
-                          //home.username = user.usuario
-                          //print( self.username)
-                          
+                      
+
                       }
 
                   }
@@ -146,4 +163,7 @@ class LoginViewController: UIViewController {
        }
     
     
+    
+    
+    */
 }

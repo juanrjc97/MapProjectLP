@@ -54,10 +54,12 @@ class TipsViewController: UIViewController {
     
     
 
-    @IBAction func DimmisButton(_ sender: UIButton) {
-        
-        dismiss(animated: true, completion: nil)
+@IBAction func TapDone(_ sender: UIBarButtonItem) {
+              dismiss(animated: true, completion: nil)
     }
+        
+      
+  
     
    
 }
