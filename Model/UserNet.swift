@@ -18,12 +18,13 @@ struct UserNet: Codable {
     var contrasena: String
     var email : String
     
-    /*init(nombre : String, apellido : String , usuario : String, contrasena : String , email :String) {
-        self.nombre = nombre
-        self.apellido = apellido
-        self.usuario = usuario
-        self.contrasena = contrasena
-        self.email = email
+    /*init() {
+        
+        self.nombre = ""
+        self.apellido = ""
+        self.usuario = ""
+        self.contrasena = ""
+        self.email = ""
         
     }*/
     //var MyTrash : [CLLocationCoordinate2D]?

@@ -58,7 +58,7 @@ class SignUpViewController: UIViewController {
             showError(error!)
         }else{
             
-            usuarioLog = UserNet.init(nombre: firstname, apellido: lastname, usuario: username, contrasena: password, email: email)
+            usuarioLog = UserNet(nombre: firstname, apellido: lastname, usuario: username, contrasena: password, email: email)
             
             //crearlo en la base  de datos
             

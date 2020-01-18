@@ -26,7 +26,8 @@ class HomeViewController: UIViewController  {
     var puntosDB = [PointNet]()
     
     //user i
-    var user : UserNet?
+    var userid : Int!
+    var username : String!
     
     // coordenadas base aerea -2.1718083,-79.8867489
     
@@ -43,7 +44,7 @@ class HomeViewController: UIViewController  {
         mapView.addGestureRecognizer(longPressRecognizer)
         
           self.setAnotations()
-        
+          print("este es el id del usuario : " ,userid, username)
         
         //inicalizar usuario
        // self.user = User()

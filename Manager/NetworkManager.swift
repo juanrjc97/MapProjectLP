@@ -214,30 +214,30 @@ class NetworkManager {
       
     }
     
-    func getNoticias(completed: @escaping ([NoticiasNet]? , ErrorMessage?) -> Void){
+    func getNoticias(completed: @escaping (Result<[NoticiasNet] , ErrorMessage>) -> Void){
         
          let endpoint  = baseUrlNoticiasTips
         
         guard let url = URL(string: endpoint) else{
-                                 completed(nil, .invalidRequest)
+            completed(.failure(.invalidRequest ) )
                                  return
                              }
                              let task = URLSession.shared.dataTask(with: url){data , response, error in
                                  
                                  if let _ = error{
-                                     completed(nil,.unableToComple)
+                                    completed(.failure(.unableToComple))
                                      return
                                  }
                                  
                       
                                  guard let response =  response as?  HTTPURLResponse, response.statusCode ==  200 else{
-                                     completed(nil, .InvalidResponse)
+                                    completed(.failure( .InvalidResponse))
                                      return
                                      
                                  }
                                  
                                  guard let data = data else{
-                                     completed(nil,.invalidData)
+                                    completed(.failure(.invalidData))
                                      return
                                  }
                                  
@@ -245,10 +245,10 @@ class NetworkManager {
                                      let decoder = JSONDecoder()
                                      decoder.keyDecodingStrategy = .convertFromSnakeCase
                                      let noticias =  try decoder.decode([NoticiasNet].self, from: data)
-                                     completed( noticias, nil)
+                                    completed(.success(noticias)  )
                                      
                                  }catch{
-                                     completed(nil,.invalidData)
+                                    completed(.failure(.invalidData))
                                      
                                  }
                                  
@@ -436,66 +436,7 @@ class NetworkManager {
           
       }
     
-   /* func updateRating(for rating : Int, for id : Int, completed: @escaping (Result<[PointNet], ErrorMessage>) -> Void){
-           
-          let endpoint  = baseUrlpoints + "\(id)/"
-           guard let url = URL(string: endpoint) else{
-               completed(.failure(.invalidRequest))
-               return
-             }
-           
-           do{//NSMutableURLRequest
-               var request = URLRequest(url: url)
-               request.httpMethod =  "PUT" // application/json
-               request.addValue("application/json", forHTTPHeaderField: "Acept")
-               request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody =  try JSONEncoder.encode(rating)// data(withJSONObject: rating, options: [])
-    
-            let task = URLSession.shared.dataTask(with: request){data , response, error in
-                   //manejando errores de la peticion httpRequest
-                   //print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) )
-                    
-                  if let _ = error{
-                   completed(.failure(.unableToComple))
-                      return
-                  }
-                  /* guard let response =  response as? HTTPURLResponse, response.statusCode ==  200 else{
-                       completed( .failure(.InvalidResponse))
-                      
-                       return
-                       
-                       
-                   }*/
-                   //print( response.statusCode)
-                   guard let data = data else{
-                       completed(.failure(.invalidData))
-                       return
-                   }
-                   do{
-                       
-                       let decoder = JSONDecoder()
-                       decoder.keyDecodingStrategy = .convertFromSnakeCase
-                       
-                       //print(NSString(data: data, encoding: String.Encoding.utf8.rawValue), "aqui")
-                       let points =  try decoder.decode([PointNet].self, from: data)
-                       
-                       //print(user)// NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-                       completed(.success(points)) //todo correcto con la data
-                       
-                   }catch{
-                       
-                       completed(.failure(.decodingProblem))
-                       
-                   }
 
-               }
-               
-               task.resume()
-               
-           }
-           
-           
-       }*/
     func updateRating(for point : PointNet, completed: @escaping (Result<[PointNet], ErrorMessage>) -> Void){
             
         let id =  point.idPunto

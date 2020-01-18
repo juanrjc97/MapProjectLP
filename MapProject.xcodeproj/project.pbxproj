@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		470D784323B1ACA00029B62A /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470D784223B1ACA00029B62A /* NewsViewController.swift */; };
 		470D784523B1AE100029B62A /* TipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470D784423B1AE100029B62A /* TipsViewController.swift */; };
+		4742082523D28ED200F16192 /* customNoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4742082423D28ED200F16192 /* customNoticeCell.swift */; };
 		475F5AA123AEF16B009712C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475F5AA023AEF16B009712C3 /* AppDelegate.swift */; };
 		475F5AA323AEF16B009712C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475F5AA223AEF16B009712C3 /* HomeViewController.swift */; };
 		475F5AA623AEF16B009712C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 475F5AA423AEF16B009712C3 /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 		47BCCD8623CD4F030050A6FC /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BCCD8523CD4F030050A6FC /* ErrorMessage.swift */; };
 		47BCCD8823CD614F0050A6FC /* NoticiasNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BCCD8723CD614F0050A6FC /* NoticiasNet.swift */; };
 		47BCCD8A23CD616B0050A6FC /* HorariosNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BCCD8923CD616B0050A6FC /* HorariosNet.swift */; };
+		47CD475823D2BDD00050D7DB /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CD475723D2BDD00050D7DB /* ScheduleCell.swift */; };
 		47E2452523B147F4001FC390 /* SlideInTrasition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E2452423B147F4001FC390 /* SlideInTrasition.swift */; };
 		47E2452723B17E41001FC390 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E2452623B17E41001FC390 /* UserViewController.swift */; };
 		47E3F2EC23CADA3200EFF1CF /* RateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3F2EB23CADA3200EFF1CF /* RateViewController.swift */; };
@@ -55,6 +57,7 @@
 /* Begin PBXFileReference section */
 		470D784223B1ACA00029B62A /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		470D784423B1AE100029B62A /* TipsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsViewController.swift; sourceTree = "<group>"; };
+		4742082423D28ED200F16192 /* customNoticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customNoticeCell.swift; sourceTree = "<group>"; };
 		475F5A9D23AEF16B009712C3 /* MapProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		475F5AA023AEF16B009712C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		475F5AA223AEF16B009712C3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -75,6 +78,7 @@
 		47BCCD8523CD4F030050A6FC /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		47BCCD8723CD614F0050A6FC /* NoticiasNet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticiasNet.swift; sourceTree = "<group>"; };
 		47BCCD8923CD616B0050A6FC /* HorariosNet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorariosNet.swift; sourceTree = "<group>"; };
+		47CD475723D2BDD00050D7DB /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		47E2452423B147F4001FC390 /* SlideInTrasition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInTrasition.swift; sourceTree = "<group>"; };
 		47E2452623B17E41001FC390 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		47E3F2EB23CADA3200EFF1CF /* RateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateViewController.swift; sourceTree = "<group>"; };
@@ -154,6 +158,8 @@
 				47E3F2ED23CB84B200EFF1CF /* ScheduleViewController.swift */,
 				47E52C3923B0178A00375AFE /* User.swift */,
 				47E3F2EF23CB8EAB00EFF1CF /* Point.swift */,
+				4742082423D28ED200F16192 /* customNoticeCell.swift */,
+				47CD475723D2BDD00050D7DB /* ScheduleCell.swift */,
 			);
 			path = MapProject;
 			sourceTree = "<group>";
@@ -352,7 +358,9 @@
 				475F5AA323AEF16B009712C3 /* HomeViewController.swift in Sources */,
 				47E2452723B17E41001FC390 /* UserViewController.swift in Sources */,
 				47BCCD8A23CD616B0050A6FC /* HorariosNet.swift in Sources */,
+				47CD475823D2BDD00050D7DB /* ScheduleCell.swift in Sources */,
 				477B18C023D1569C006EC357 /* SignUpViewController.swift in Sources */,
+				4742082523D28ED200F16192 /* customNoticeCell.swift in Sources */,
 				477B18C223D156A8006EC357 /* LoginViewController.swift in Sources */,
 				477B18C523D166E5006EC357 /* Utilities.swift in Sources */,
 				470D784523B1AE100029B62A /* TipsViewController.swift in Sources */,

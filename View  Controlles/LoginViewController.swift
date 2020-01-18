@@ -10,12 +10,12 @@ import UIKit
 
 @available(iOS 13.0, *)
 @available(iOS 13.0, *)
-class LoginViewController: UIViewController {
 
-    
-    
+class LoginViewController: UIViewController {
     
     var userLogin : UserNet?
+    var username : String = ""
+    
     
     @IBOutlet weak var EmailLbl: UITextField!
     
@@ -31,6 +31,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         setUpElements()
+        //userLogin()
         // Do any additional setup after loading the view.
     }
     
@@ -43,45 +44,26 @@ class LoginViewController: UIViewController {
         
         //signing in the user
 
-        let username = EmailLbl.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+       
         //let password = PasswordLbl.text!.trimmingCharacters(in: .whitespacesAndNewlines)
 
         
         //validate the fields
         let error = validateFields()
         if error  != nil {
-            
+            print("no cambia de pestaña")
             showError(error!)
         }else{
             
-            //crearlo en la base  de datos
            //obtengo un usuario con su :usuario: registrado en la base
-            NetworkManager.shared.getUser(for: username) { (user, errorMessage) in
-                       guard  let user = user else{
-                        
-                        self.showError( errorMessage!.rawValue)
-                           return
-                       }
-                       print(user)
-                self.userLogin = user
-                print(self.userLogin)
-                      
-                   }
-            
-            //transtion to home
-            //self.goHome(user : userLogin!)
+            //print(iduser)
+            //transtion to home//id : iduser
+            self.goHome()
             // self.goHome()
            
         }
-        
-        
-        
-        
+   
     }
-    
-    
-    
-    
     
     
     func showError(_ message: String)  {
@@ -98,12 +80,13 @@ class LoginViewController: UIViewController {
         Utilities.styleFilledButton(LoginBtn)
         
     }
-
-    func goHome(user : UserNet)  {
+//user : UserNet
+    //id : Int
+    func goHome( )  {
           
           guard  let homeviewController  =  storyboard?.instantiateViewController(identifier: "HomeVC") as? HomeViewController else {return}
           view.window?.rootViewController = homeviewController
-         homeviewController.user = user
+       
         
           view.window?.makeKeyAndVisible()
           
@@ -111,8 +94,7 @@ class LoginViewController: UIViewController {
       }
     
     //check the fields and  validate the data
-       func validateFields() -> String? {
-
+        func validateFields() -> String? {
            //check that all fields are filled in
            
            if PasswordLbl.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
@@ -121,29 +103,47 @@ class LoginViewController: UIViewController {
                return "Please fill in all fields"
            }
            
-           //check if the password is secure
-           
            let cleanedPassoword   = PasswordLbl.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-           
-           if Utilities.isPasswordValid(cleanedPassoword)  == false {
-               
-               return "Please make sure that your password is at least 8  characters, contains a special character and number"
-               
-           }
+           let username = EmailLbl.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+           var  validPassword  : String = ""
+ 
+         
+        //print("vacio?" , validPassword)
+        //validPassword == ""
+        if  self.userLogin == nil {
+            
+            NetworkManager.shared.getUser(for: username) { (user, errorMessage) in
+                            guard  let user = user else{
+                             
+                             self.showError( errorMessage!.rawValue)
+                               return
+                            }
+                     
+                      //passwordDb = user.contrasena
+                      if user.contrasena.trimmingCharacters(in: .whitespacesAndNewlines) != cleanedPassoword {
+                          
+                          self.userLogin = nil
+                          print(validPassword)
+                      }else{
+                         // let home = HomeViewController()
+                          self.userLogin = user
+                          //home.username = user.usuario
+                          //print( self.username)
+                          
+                      }
 
+                  }
+            print(validPassword)
+            //return  validPassword
+           
+        }else{
+            validPassword = "The password is incorrect"
+             return validPassword
+        }
+        
+        
            return nil
        }
     
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
