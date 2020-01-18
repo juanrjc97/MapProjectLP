@@ -44,7 +44,8 @@ class RateViewController: UIViewController {
     }
     
     @IBAction func DidTapSubmit(_ sender: UIButton) {
-        punto.sumaCalificacion = rate
+        punto.cantidadUsuarioCal += 1
+        punto.sumaCalificacion =   Int((rate + punto.sumaCalificacion) / punto.cantidadUsuarioCal )
         print(punto)
                 //calificacion / id
         NetworkManager.shared.updateRating(for:  punto) { (result) in

@@ -35,7 +35,7 @@ class MainViewController: UIViewController {
     func setUpElements()  {
         
         Utilities.styleFilledButton(SignUpBtn)
-        Utilities.styleHollowButton(LoginBtn)
+        Utilities.styleFilledButton(LoginBtn)
     }
     /*
     // MARK: - Navigation

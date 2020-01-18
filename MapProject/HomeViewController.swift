@@ -35,9 +35,12 @@ class HomeViewController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("este es el id del usuario : " ,userid, username)
+       
+        // Do any additional setup after loading the view, typically from a nib.
+        //obtenemos el userid para usarlo luego en las validaciones
+        setUserid(username : username)
         checkLocationServices()
         mapView.delegate = self
-        // Do any additional setup after loading the view, typically from a nib.
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleTap(gestureReconizer:)))
         longPressRecognizer.minimumPressDuration = 0.5
@@ -46,10 +49,21 @@ class HomeViewController: UIViewController  {
         
           self.setAnotations()
           
+
         
-        //inicalizar usuario
-       // self.user = User()
-        
+    }
+    
+    func setUserid(username : String)  {
+        NetworkManager.shared.getUser(for: username) { (userDB, ErrorMessage) in
+                guard  let User = userDB else{
+                                      //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
+                                      //self.present(alert, animated: true, completion: nil)
+                                      print( ErrorMessage!.rawValue)
+                                      return
+                                  }
+            self.userid = User.idUsuario
+           
+        }
     }
     
     //accion de mostrar menu
@@ -240,7 +254,7 @@ class HomeViewController: UIViewController  {
               annotation.subtitle = " ⭐"
          //puntosDB.last!.idPunto
        
-        let pointNt = PointNet(idPunto:0  , latitud: String(coordinate.latitude), longitud: String(coordinate.longitude), icono: "BG",sumaCalificacion: 5, cantidadUsuarioCal: 1, idUsuario: 1, idSector: 1)
+        let pointNt = PointNet(idPunto: puntosDB.last!.idPunto + 1  , latitud: String(coordinate.latitude), longitud: String(coordinate.longitude), icono: "BG",sumaCalificacion: 0, cantidadUsuarioCal: 0, idUsuario: userid, idSector: 1)
         
               generator.impactOccurred()
               mapView.addAnnotation(annotation)
@@ -255,7 +269,7 @@ class HomeViewController: UIViewController  {
                            
                        case .success(let pointNt):
                        
-                            print(pointNt)
+                            print("Se ingreso  correctamente el punto" ,  pointNt)
                         
                             
                        }
@@ -291,6 +305,27 @@ class HomeViewController: UIViewController  {
             
             
         }
+        
+    }
+    
+    func deletepoint(idpunto : Int)  {
+        
+        NetworkManager.shared.deletePoint(for: idpunto) { (result) in
+                                           
+                        switch result {
+                                               
+                        case .failure(let error):
+                                print("error al borrar " ,error.rawValue)
+                                              
+                        case .success(_):
+                                              
+                                print("el basurero se borro con exito")
+                                              
+                             self.puntosDB.removeAll()
+                                               
+                        }
+                                           
+                }
         
     }
     
@@ -373,25 +408,15 @@ extension HomeViewController : MKMapViewDelegate{
             for basurero in puntosDB {
                 //basurero.latitud == String(annView.coordinate.latitude) && basurero.longitud == String(annView.coordinate.longitude)
                 
-                if basurero.latitud.range(of:String(annView.coordinate.latitude) ) != nil && basurero.longitud.range(of:String(annView.coordinate.longitude) ) != nil {
-                    NetworkManager.shared.deletePoint(for: basurero.idPunto) { (result) in
-                                     
-                                     switch result {
-                                         
-                                     case .failure(let error):
-                                         print("error al borrar " ,error.rawValue)
-                                        
-                                     case .success(_):
-                                        
-                                         print("el basurero se borro con exito")
-                                        
-                                         self.puntosDB.removeAll()
-                                         
-                                     }
-                                     
-                                 }
+                if basurero.latitud.range(of:String(annView.coordinate.latitude) ) != nil && basurero.longitud.range(of:String(annView.coordinate.longitude) ) != nil && basurero.idUsuario ==  self.userid{
+                    
+                    self.deletepoint(idpunto: basurero.idPunto)
+                    puntosDB.removeAll()
                     mapView.removeAnnotation(annView)
                     self.setAnotations()
+                }else{
+                            print("no se pudo  borrar el basusrero no es tuyo:" , basurero.idUsuario)
+                    
                 }
                    
                 

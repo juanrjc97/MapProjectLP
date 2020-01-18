@@ -41,9 +41,11 @@ class SignUpViewController: UIViewController {
           // Do any additional setup after loading the view.
       }
     
+  
+    
     @IBAction func SignUpTapped(_ sender: Any) {
         
-       
+        print(UserNameTxT.text)
         
         let firstname = FirstNameTxT.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         let lastname = LastNameTxT.text!.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -77,13 +79,22 @@ class SignUpViewController: UIViewController {
             
             //transtion to home
             
-            self.goHome()
+        
         }
         
         
     }
     
-    func goHome()  {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            
+            if(segue.identifier == "SignSendUser"){
+                   let displayVC = segue.destination  as! HomeViewController
+                displayVC.username = UserNameTxT.text?.trimmingCharacters(in: .whitespaces)
+            }
+        }
+    
+    
+    /*func goHome()  {
         
         guard  let HomeVierController  =  storyboard?.instantiateViewController(identifier: "HomeVC") as? HomeViewController else {return}
         
@@ -92,7 +103,7 @@ class SignUpViewController: UIViewController {
         view.window?.makeKeyAndVisible()
         
         
-    }
+    }*/
     
     func showError(_ message: String)  {
         //ErrorLbl.text = message
@@ -140,14 +151,6 @@ class SignUpViewController: UIViewController {
         Utilities.styleFilledButton(SignUpBtn)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
 
 }
