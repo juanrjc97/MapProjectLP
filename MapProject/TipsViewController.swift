@@ -11,20 +11,45 @@ import UIKit
 class TipsViewController: UIViewController {
 
     
-      var schedules : [HorariosNet] = []
+     var schedules : [HorariosNet] = []
+    
+    @IBOutlet weak var tableViewCellSchedule: ScheduleCell!
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.delegate = self
         tableView.dataSource = self
+        createNews()
 
         // Do any additional setup after loading the view.
     }
     
     
     
+      func createNews()  {
+
+          NetworkManager.shared.getHorarios{ result in
+                     
+                     switch result{
+                     case .success(let horarios):
+                          //print(notas)
+                         self.schedules = horarios
+                         DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                               
+                            }
+                        //self.tableView.reloadData()
+                     case .failure(let error):
+                         print(error.localizedDescription)
+                     }
+
+                 }
+
+      }
+
     
     
     
@@ -50,5 +75,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     cell.setSchedule(horario: horario)
     return cell
 }
+    
+ 
 
 }

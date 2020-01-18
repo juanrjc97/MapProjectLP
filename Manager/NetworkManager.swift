@@ -172,28 +172,28 @@ class NetworkManager {
                       task.resume()
     }
     
-    func getHorarios(completed: @escaping ( [HorariosNet]? , ErrorMessage?) -> Void){
+    func getHorarios(completed: @escaping ( Result<[HorariosNet] , ErrorMessage>) -> Void){
         
         guard let url = URL(string: baseUrlhorarios) else{
-                          completed(nil, .invalidRequest)
+                            completed(.failure(.unableToComple))
                           return
                       }
                       let task = URLSession.shared.dataTask(with: url){data , response, error in
                           
                           if let _ = error{
-                              completed(nil,.unableToComple)
+                               completed(.failure( .InvalidResponse))
                               return
                           }
                           
                
                           guard let response =  response as?  HTTPURLResponse, response.statusCode ==  200 else{
-                              completed(nil, .InvalidResponse)
+                                completed(.failure( .InvalidResponse))
                               return
                               
                           }
                           
                           guard let data = data else{
-                              completed(nil,.invalidData)
+                              completed(.failure(.invalidData))
                               return
                           }
                           
@@ -201,10 +201,10 @@ class NetworkManager {
                               let decoder = JSONDecoder()
                               decoder.keyDecodingStrategy = .convertFromSnakeCase
                               let horarios =  try decoder.decode([HorariosNet].self, from: data)
-                              completed( horarios, nil)
+                            completed( .success( horarios))
                               
                           }catch{
-                              completed(nil,.invalidData)
+                             completed(.failure(.invalidData))
                               
                           }
                           
@@ -467,7 +467,7 @@ class NetworkManager {
                                     
                                 }
                                 //print( response.statusCode)
-                                guard let data = data else{
+                    guard data != nil else{
                                     completed(.failure(.invalidData))
                                     return
                                 }

@@ -21,27 +21,27 @@ class ScheduleCell: UITableViewCell {
     func setSchedule(horario : HorariosNet) {
         if horario.idSector ==  1 {
             title.text = "North"
-            ScheduleImgae.image = UIImage(named: "bombilla")
+            ScheduleImgae.image = UIImage(named: "horario")
             content.text = String("\(horario.dia)           \(horario.hora)" )
         }
         if horario.idSector ==  2 {
             title.text = "South"
-                   ScheduleImgae.image = UIImage(named: "bombilla")
+                   ScheduleImgae.image = UIImage(named: "horario")
                    content.text = String("\(horario.dia)           \(horario.hora)" )
                }
         if horario.idSector ==  3 {
              title.text = "SouthWest"
-                   ScheduleImgae.image = UIImage(named: "bombilla")
+                   ScheduleImgae.image = UIImage(named: "horario")
                    content.text = String("\(horario.dia)           \(horario.hora)" )
                }
         if horario.idSector ==  4 {
             title.text = "Center"
-                   ScheduleImgae.image = UIImage(named: "bombilla")
+                   ScheduleImgae.image = UIImage(named: "horario")
                    content.text = String("\(horario.dia)           \(horario.hora)" )
                }
         if horario.idSector ==  4 {
                title.text = "NorthWest"
-               ScheduleImgae.image = UIImage(named: "bombilla")
+               ScheduleImgae.image = UIImage(named: "horario")
                content.text = String("\(horario.dia)           \(horario.hora)" )
            }
 

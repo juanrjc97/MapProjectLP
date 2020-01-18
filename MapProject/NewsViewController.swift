@@ -33,7 +33,11 @@ class NewsViewController: UIViewController {
                    case .success(let notas):
                         print(notas)
                        self.news = notas
-                      self.tableView.reloadData()
+                        DispatchQueue.main.async {
+                         self.tableView.reloadData()
+                                                      
+                          }
+                     
                    case .failure(let error):
                        print(error.localizedDescription)
                    }

@@ -18,16 +18,13 @@ struct CellData{
     
 }
 
-
-
-
 class ScheduleViewController: UITableViewController  {
 
    
     var tableViewData = [CellData]()
     //var horarios : [HorariosNet]?
     
-    var celdaNorte = CellData(openned: false, tittle: "North", SeccionData: [], sector: 1)
+    var celdaNorte = CellData(openned: false, tittle: "North", SeccionData: ["hola"], sector: 1)
     var celdaCenter = CellData(openned: false, tittle: "Center", SeccionData: [], sector: 2)
     var celdaNW =     CellData(openned: false, tittle: "NorthWest", SeccionData: [], sector: 3)
     var celdaSW =     CellData(openned: false, tittle: "SouthWest", SeccionData: [], sector: 4)
@@ -37,7 +34,7 @@ class ScheduleViewController: UITableViewController  {
         super.viewDidLoad()
         
       
-        self.cargarHorarios()
+        cargarHorarios()
 
         // Do any additional setup after loading the view.
     }
@@ -45,50 +42,46 @@ class ScheduleViewController: UITableViewController  {
     
     func cargarHorarios() {
         
-        NetworkManager.shared.getHorarios { (horarios, errorMessage) in
-            guard  let horarios = horarios else{
-                                      //let alert = UIAlertController(title: "algo salio mal " , message: errorMessage! , preferredStyle: .alert)
-                                      //self.present(alert, animated: true, completion: nil)
-                                      print( errorMessage!.rawValue)
-                                      return
-                                  }
-            
-            for horario in horarios {
-                
-                if horario.idSector == self.celdaNorte.sector {
-                             let fecha = "Dia: \(horario.dia)                 Hora: \(horario.hora)"
-                    self.celdaNorte.SeccionData.append(fecha)
-                }else if horario.idSector == self.celdaCenter.sector {
-                             let fecha = "Dia: \(horario.dia)                 Hora: \(horario.hora)"
-                    self.celdaCenter.SeccionData.append(fecha)
-                }else if horario.idSector == self.celdaNW.sector {
-                             let fecha = "Dia: \(horario.dia)                 Hora: \(horario.hora)"
-                    self.celdaNW.SeccionData.append(fecha)
-                         }
-                else if horario.idSector == self.celdaSW.sector {
-                             let fecha = "Dia: \(horario.dia)                 Hora: \(horario.hora)"
-                    self.celdaSW.SeccionData.append(fecha)
-                         }
-                else if horario.idSector == self.celdaSouth.sector {
-                             let fecha = "Dia: \(horario.dia)                 Hora: \(horario.hora)"
-                    self.celdaSouth.SeccionData.append(fecha)
-                         }
-                         
-                         
-                     }
-            self.tableViewData = [self.celdaNorte,self.celdaCenter,self.celdaNW,self.celdaSW,self.celdaSouth]
-                               //print(horarios)
-            //print(self.horarios)
-            
-        }
-        
-        
-        
+        NetworkManager.shared.getHorarios{ result in
+                           
+                switch result{
+                    case .success(let horarios):
+                                //print(notas)
+                    for horario in horarios {
+                                             
+                        if horario.idSector == self.celdaNorte.sector {
+                            let fecha = "Dia: \(horario.dia)                 Hora: \(horario.hora)"
+                            print(fecha)
+                            self.celdaNorte.SeccionData.append(fecha)
+                        }else if horario.idSector == self.celdaCenter.sector {
+                            let fecha = "Dia: \(horario.dia)                 Hora: \(horario.hora)"
+                            self.celdaCenter.SeccionData.append(fecha)
+                        }else if horario.idSector == self.celdaNW.sector {
+                            let fecha = "Dia: \(horario.dia)                 Hora: \(horario.hora)"
+                            self.celdaNW.SeccionData.append(fecha)
+                        }else if horario.idSector == self.celdaSW.sector {
+                            let fecha = "Dia: \(horario.dia)                 Hora: \(horario.hora)"
+                            self.celdaSW.SeccionData.append(fecha)
+                        }else if horario.idSector == self.celdaSouth.sector {
+                            let fecha = "Dia: \(horario.dia)                 Hora: \(horario.hora)"
+                            self.celdaSouth.SeccionData.append(fecha)
+                        }
+                               
+                    }
+                  DispatchQueue.main.async {
+                                self.tableViewData = [self.celdaNorte,self.celdaCenter,self.celdaNW,self.celdaSW,self.celdaSouth]
+                                      self.tableView.reloadData()
+                                     
+                    }
+                              //self.tableView.reloadData()
+                    case .failure(let error):
+                               print(error.localizedDescription)
+                           }
+
+            }
+
     }
-    
-    
-    
-    
+        
     
     override func numberOfSections(in tableView: UITableView) -> Int{
               
