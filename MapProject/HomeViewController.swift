@@ -246,7 +246,7 @@ class HomeViewController: UIViewController  {
              let location =    gestureReconizer.location(in: self.mapView)  //  gestureReconizer.location(in: mapView)
               let coordinate = self.mapView.convert(location, toCoordinateFrom: self.mapView)
               //creando las coordenadas de los basureros del usuario
-              let trashCoord = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
+              //let trashCoord = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
               //add anotation
               let annotation  =  MKPointAnnotation()  //MKAnnotationView()
               annotation.coordinate = coordinate

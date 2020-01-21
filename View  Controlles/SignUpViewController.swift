@@ -45,7 +45,7 @@ class SignUpViewController: UIViewController {
     
     @IBAction func SignUpTapped(_ sender: Any) {
         
-        print(UserNameTxT.text)
+       // print(UserNameTxT.text)
         
         let firstname = FirstNameTxT.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         let lastname = LastNameTxT.text!.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -69,7 +69,10 @@ class SignUpViewController: UIViewController {
                             
                         switch result {
                             case .success(let usuario):
-                                
+                                print("funciona el .suceess")
+                                let home = self.storyboard?.instantiateViewController(identifier: "HomeVC") as? HomeViewController
+                                home?.username = username
+                                self.present(home!, animated: true)
                                 print(usuario)
                                 
                             case .failure(let error):
@@ -78,32 +81,14 @@ class SignUpViewController: UIViewController {
             }
             
             //transtion to home
-            
-        
-        }
+       
+            }
         
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            
-            if(segue.identifier == "SignSendUser"){
-                   let displayVC = segue.destination  as! HomeViewController
-                displayVC.username = UserNameTxT.text?.trimmingCharacters(in: .whitespaces)
-            }
-        }
     
     
-    /*func goHome()  {
-        
-        guard  let HomeVierController  =  storyboard?.instantiateViewController(identifier: "HomeVC") as? HomeViewController else {return}
-        
-        
-        view.window?.rootViewController = HomeVierController
-        view.window?.makeKeyAndVisible()
-        
-        
-    }*/
     
     func showError(_ message: String)  {
         //ErrorLbl.text = message
@@ -151,6 +136,18 @@ class SignUpViewController: UIViewController {
         Utilities.styleFilledButton(SignUpBtn)
     }
 
+    
+    /*
+     
+     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+               
+               if(segue.identifier == "SignSendUser"){
+                      let displayVC = segue.destination  as! HomeViewController
+                   displayVC.username = UserNameTxT.text?.trimmingCharacters(in: .whitespaces)
+               }
+            }
+     
+     */
     
 
 }

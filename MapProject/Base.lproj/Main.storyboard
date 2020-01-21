@@ -85,7 +85,6 @@
                                         <state key="normal" title="Login"/>
                                         <connections>
                                             <action selector="LoginBtn:" destination="9og-7W-QFt" eventType="touchUpInside" id="o71-nJ-v3j"/>
-                                            <segue destination="BYZ-38-t0r" kind="showDetail" identifier="SendUser" id="nrl-6w-98V"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CAM-9r-5up">
@@ -571,12 +570,12 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" ambiguous="YES" image="paperplane.fill" catalog="system" id="XYA-O3-Wap">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="paperplane.fill" catalog="system" id="XYA-O3-Wap">
                                 <rect key="frame" x="16" y="540.66666666666663" width="41" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="eye.slash.fill" catalog="system" id="Naa-MI-Lhg">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" ambiguous="YES" image="eye.slash.fill" catalog="system" id="Naa-MI-Lhg">
                                 <rect key="frame" x="16" y="602.66666666666663" width="41" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -858,7 +857,6 @@
                                         <state key="normal" title="Sing  Up"/>
                                         <connections>
                                             <action selector="SignUpTapped:" destination="RTp-X2-xJy" eventType="touchUpInside" id="WOq-Cq-42g"/>
-                                            <segue destination="BYZ-38-t0r" kind="showDetail" identifier="SignSendUser" id="1J2-Rt-BjP"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dmd-8L-dWV">
@@ -1029,7 +1027,4 @@
         <image name="usuario" width="512" height="512"/>
         <image name="wallpaperTrash" width="1242" height="2208"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="1J2-Rt-BjP"/>
-    </inferredMetricsTieBreakers>
 </document>

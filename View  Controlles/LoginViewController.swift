@@ -15,6 +15,7 @@ class LoginViewController: UIViewController {
     
     var userLogin : UserNet?
     
+    var validUser : Bool = false;
     
     
     @IBOutlet weak var EmailLbl: UITextField!
@@ -40,77 +41,57 @@ class LoginViewController: UIViewController {
     
     @IBAction func LoginBtn(_ sender: UIButton) {
         
-        
-        
-        
-        
-       //guard  let homeviewController  =  storyboard?.instantiateViewController(identifier: "HomeVC") as? HomeViewController else {return}
-           //view.window?.rootViewController = homeviewController
-           //view.window?.makeKeyAndVisible()
-       // present(homeviewController, animated: true, completion: nil)
-        //validate text fields
-        
-        //signing in the user
-
+        let username  = EmailLbl.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        let password = PasswordLbl.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         //validate the fields
-        
-        //cdesbloquear esto luego
-        /*
         let error = validateFields()
         if error  != nil {
-            print("no cambia de pestaña")
             showError(error!)
-        }else{
+        }else if validUser == false{
             
-           //obtengo un usuario con su :usuario: registrado en la base
-            //print(iduser)
-            //transtion to home//id : iduser
-            let home = HomeViewController()
+            validateUserDB(username: username, password: password)
+        }else if validUser == true{
+             goHome(username: username);
             
-            home.username = "beto"
-            self.goHome()
-            // self.goHome()
-           
-        }*/
+        }
    
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if(segue.identifier == "SendUser"){
-               let displayVC = segue.destination  as! HomeViewController
-            displayVC.username = EmailLbl.text
+    
+    func validateUserDB(username : String , password : String){
+       
+            NetworkManager.shared.getUser(for:username) { (user, errorMessage) in
+                        guard  let user = user else{
+                        DispatchQueue.main.async {
+                          self.ErrorLbl.text = errorMessage!.rawValue
+                          self.ErrorLbl.alpha = 1
+                         self.showError( errorMessage!.rawValue)
+                                                     
+                         }
+                      
+                        return
+                       }
+                if user.contrasena == password{
+                    self.validUser = true
+                }
+
         }
+            
     }
     
-    func setUpElements()  {
-          ErrorLbl.alpha =  0
-          
-          //style
-          Utilities.styleTextField(EmailLbl)
-          Utilities.styleTextField(PasswordLbl)
-          Utilities.styleFilledButton(LoginBtn)
-          
-      }
-    
-    /*
-    func showError(_ message: String)  {
-        ErrorLbl.text = message
-        ErrorLbl.alpha = 1
-    }
-    
-  
-//user : UserNet
-    //id : Int
-    func goHome( )  {
+    func goHome(username : String  )  {
           
           guard  let homeviewController  =  storyboard?.instantiateViewController(identifier: "HomeVC") as? HomeViewController else {return}
+            homeviewController.username = username
           view.window?.rootViewController = homeviewController
-       
-        
           view.window?.makeKeyAndVisible()
           
           
+      }
+    
+      func showError(_ message: String)  {
+          ErrorLbl.text = message
+          ErrorLbl.alpha = 1
       }
     
     //check the fields and  validate the data
@@ -119,51 +100,55 @@ class LoginViewController: UIViewController {
            
            if PasswordLbl.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
               EmailLbl.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""  {
-               
+               print("no entra")
                return "Please fill in all fields"
-           }
+           }else{
            
-           let cleanedPassoword   = PasswordLbl.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-           let username = EmailLbl.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-           var  validPassword  : String = ""
- 
-         
-        //print("vacio?" , validPassword)
-        //validPassword == ""
-        if  self.userLogin == nil {
+                return nil
             
-            NetworkManager.shared.getUser(for: username) { (user, errorMessage) in
-                            guard  let user = user else{
-                             
-                             self.showError( errorMessage!.rawValue)
-                               return
-                            }
-                     
-                      //passwordDb = user.contrasena
-                      if user.contrasena.trimmingCharacters(in: .whitespacesAndNewlines) != cleanedPassoword {
-                          
-                          self.userLogin = nil
-                          print(validPassword)
-                      }else{
-                      
-
-                      }
-
-                  }
-            print(validPassword)
-            //return  validPassword
+            }
            
-        }else{
-            validPassword = "The password is incorrect"
-             return validPassword
-        }
-        
-        
-           return nil
+           /*let cleanedPassoword   = PasswordLbl.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+           let username = EmailLbl.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+           var  validPassword  : String = ""*/
+            
+       
        }
     
+    func setUpElements()  {
+             ErrorLbl.alpha =  0
+             
+             //style
+             Utilities.styleTextField(EmailLbl)
+             Utilities.styleTextField(PasswordLbl)
+             Utilities.styleFilledButton(LoginBtn)
+             
+         }
     
     
-    
-    */
 }
+
+
+/* esto valida que el usuario este ne la base
+ NetworkManager.shared.getUser(for:username) { (user, errorMessage) in
+                                      guard  let user = user else{
+                                        self.ErrorLbl.text = errorMessage!.rawValue
+                                        self.ErrorLbl.alpha = 1
+                                       //self.showError( errorMessage!.rawValue)
+                                         return
+                                      }
+                                if user.contrasena.trimmingCharacters(in: .whitespacesAndNewlines) != password {
+                                    self.ErrorLbl.text = "Password Inconrrect"
+                                    self.ErrorLbl.alpha = 1
+                                    
+                                }else{
+                                
+                                let home = HomeViewController()
+                                home.username = username
+                                self.performSegue(withIdentifier: "SendUser", sender: self)
+                                    
+
+                                }
+
+                            }
+ */
