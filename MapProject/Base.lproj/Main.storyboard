@@ -75,7 +75,7 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cmC-jT-Sex">
                                         <rect key="frame" x="0.0" y="62.666666666666657" width="295" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VBM-i1-SEn">
                                         <rect key="frame" x="0.0" y="116.66666666666666" width="295" height="50"/>
@@ -486,7 +486,7 @@
                                 </items>
                             </navigationBar>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fondoUser" translatesAutoresizingMaskIntoConstraints="NO" id="T77-29-uWv">
-                                <rect key="frame" x="-23" y="79" width="398" height="235"/>
+                                <rect key="frame" x="-23" y="79" width="398" height="235.00000000000011"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="234.99999999999989" id="wdy-Mf-46p"/>
                                 </constraints>
@@ -847,7 +847,7 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VNw-8G-ATn">
                                         <rect key="frame" x="0.0" y="233" width="295" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBH-OZ-WYj">
                                         <rect key="frame" x="0.0" y="287" width="295" height="50"/>

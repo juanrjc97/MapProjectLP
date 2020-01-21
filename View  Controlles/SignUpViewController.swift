@@ -12,8 +12,10 @@ import UIKit
 @available(iOS 13.0, *)
 class SignUpViewController: UIViewController {
     
-    var usuarioLog : UserNet?
-    static var idUser  : Int!
+    
+    var validUser : Bool = false
+    
+    var usuarioLog : UserNet!
 
     @IBOutlet weak var FirstNameTxT: UITextField!
     
@@ -61,32 +63,52 @@ class SignUpViewController: UIViewController {
         }else{
             
             usuarioLog = UserNet(nombre: firstname, apellido: lastname, usuario: username, contrasena: password, email: email)
-            
             //crearlo en la base  de datos
-            
-            NetworkManager.shared.addUser(for: usuarioLog!) { (result) in
-                            print("Ingreso de Usuario")
-                            
-                        switch result {
-                            case .success(let usuario):
-                                print("funciona el .suceess")
-                                let home = self.storyboard?.instantiateViewController(identifier: "HomeVC") as? HomeViewController
-                                home?.username = username
-                                self.present(home!, animated: true)
-                                print(usuario)
-                                
-                            case .failure(let error):
-                                self.showError(error.rawValue)
-                            }
-            }
-            
+            createUserDB(user: usuarioLog)
+
             //transtion to home
-       
+            goHome(username: username)
             }
         
         
     }
     
+    func createUserDB(user: UserNet){
+          
+        NetworkManager.shared.addUser(for: user) { (result) in
+            switch result {
+            case .success( _):
+                DispatchQueue.main.async {
+                 self.ErrorLbl.text = "User created"
+                 self.ErrorLbl.alpha = 1
+                }
+                
+            
+            case .failure(let error):
+                DispatchQueue.main.async {
+                 self.ErrorLbl.text = error.rawValue
+                 self.ErrorLbl.alpha = 1
+                 self.showError( error.rawValue)
+                                            
+                }
+                
+                
+            }
+            
+            
+        }
+               
+       }
+       
+       func goHome(username : String  )  {
+             
+             guard  let homeviewController  =  storyboard?.instantiateViewController(identifier: "HomeVC") as? HomeViewController else {return}
+               homeviewController.username = username
+             view.window?.rootViewController = homeviewController
+             view.window?.makeKeyAndVisible()
+             
+             
+         }
     
     
     
