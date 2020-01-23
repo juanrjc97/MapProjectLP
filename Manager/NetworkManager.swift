@@ -9,28 +9,22 @@
 import Foundation
 
 class NetworkManager {
-     // urls usadas
-    //http://127.0.0.1:8000/usuarios/brcetuti/
-    //http://0.0.0.0:8000/usuarios/
-    //http://192.168.100.14:8000/puntoRecoleccion/
-    //http://192.168.100.14:8000/noticia/
-    //http://127.0.0.1:8000/usuarios/
-    //ips para usar desde la casa
-    /*
-        let baseURL = "http://192.168.100.14:8000/usuarios/"
+
+    //ips para usar desde la ESPOL
+    
+       /* let baseURL = "http://172.20.10.4:8000/usuarios/"
         
-        let baseUrlpoints = "http://192.168.100.14:8000/puntoRecoleccion/"
+        let baseUrlpoints = "http://172.20.10.4:8000/puntoRecoleccion/"
         
-        let baseUrlNoticiasTips = "http://192.168.100.14:8000/noticia/"
+        let baseUrlNoticiasTips = "http://172.20.10.4:8000/noticia/"
         
-        let baseUrlhorarios = "http://192.168.100.14:8000/horarioRecoleccion/"
+        let baseUrlhorarios = "http://172.20.10.4:8000/horarioRecoleccion/"
      */
-    
-    
+
     //nueva http://0.0.0.0:8000/usuarios/
-    //192.168.1.4
-    //cambiaste la ip a la de la casa de miguel
     static let shared   = NetworkManager()
+    //para usar desde la casa
+    
     let baseURL = "http://192.168.100.14:8000/usuarios/"
     
     let baseUrlpoints = "http://192.168.100.14:8000/puntoRecoleccion/"

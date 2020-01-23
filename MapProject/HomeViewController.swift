@@ -411,7 +411,7 @@ extension HomeViewController : MKMapViewDelegate{
                 if basurero.latitud.range(of:String(annView.coordinate.latitude) ) != nil && basurero.longitud.range(of:String(annView.coordinate.longitude) ) != nil && basurero.idUsuario ==  self.userid{
                     
                     self.deletepoint(idpunto: basurero.idPunto)
-                    puntosDB.removeAll()
+                   // puntosDB.removeAll()
                     mapView.removeAnnotation(annView)
                     self.setAnotations()
                 }else{

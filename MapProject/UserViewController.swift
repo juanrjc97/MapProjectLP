@@ -57,6 +57,10 @@ class UserViewController: UIViewController {
     
     
     
+    /*@IBAction func DidTapLogOut(_ sender: Any) {
+        print("salir")
+        self.navigationController?.popToRootViewController(animated: true)
+    }*/
     
     @IBAction func DoneButton(_ sender: Any) {
          dismiss(animated: true, completion: nil)

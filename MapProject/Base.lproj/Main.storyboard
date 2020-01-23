@@ -116,6 +116,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="U7B-zT-d4c"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Mlb-Zh-Gjz"/>
                     <connections>
                         <outlet property="EmailLbl" destination="pAY-h1-ZiX" id="Gv7-c8-WDz"/>
                         <outlet property="ErrorLbl" destination="CAM-9r-5up" id="F9h-uD-B2g"/>
@@ -482,6 +483,11 @@
                                                 <action selector="DoneButton:" destination="B2c-jI-Sdq" id="46j-5k-e9b"/>
                                             </connections>
                                         </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="f2k-Q4-feE">
+                                            <connections>
+                                                <segue destination="Ubq-iI-0tO" kind="show" id="Uuf-gE-CA2"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -628,19 +634,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OM7-hs-3hr">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="130" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OM7-hs-3hr">
                                 <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleCell" id="MCr-X7-po3" customClass="ScheduleCell" customModule="MapProject" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="120"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MCr-X7-po3" id="S2F-hP-2xt">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1tW-Mh-X8F">
-                                                    <rect key="frame" x="27" y="32.666666666666664" width="62" height="54.999999999999993"/>
+                                                    <rect key="frame" x="27" y="37.666666666666657" width="62" height="55"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="62" id="6aS-j1-TXs"/>
                                                         <constraint firstAttribute="width" secondItem="1tW-Mh-X8F" secondAttribute="height" multiplier="42:29" constant="-17.65517241379311" id="I1u-SX-b8p"/>
@@ -657,7 +663,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="content" lineBreakMode="tailTruncation" numberOfLines="18" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="1bT-3w-Mg5">
-                                                    <rect key="frame" x="115" y="33" width="245" height="66"/>
+                                                    <rect key="frame" x="115" y="33" width="245" height="76"/>
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -892,6 +898,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qBI-2c-igg"/>
                     </view>
+                    <navigationItem key="navigationItem" id="hCr-89-aK0"/>
                     <connections>
                         <outlet property="EmailTxT" destination="6Uq-iN-c28" id="mcx-2P-blB"/>
                         <outlet property="ErrorLbl" destination="Dmd-8L-dWV" id="ooC-JR-uAl"/>
@@ -909,7 +916,7 @@
         <!--Navigation Controller-->
         <scene sceneID="wQn-1c-ZfN">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ubq-iI-0tO" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="Ubq-iI-0tO" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="ZbE-j4-VSu"/>
                     <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="LWk-9b-gpx">
